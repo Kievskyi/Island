@@ -1,7 +1,10 @@
 package org.example;
 
+import org.example.controllers.ConsoleController;
+
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello world!");
+        ConsoleController consoleController = new ConsoleController();
+        consoleController.startSimulation();
     }
 }
