@@ -1,15 +1,18 @@
 package org.example.controllers;
 
 import org.example.dao.LoadJsonDao;
-import org.example.domains.Map;
+import org.example.dao.Properties;
+import org.example.domains.Field;
 
 public class ConsoleController {
-    LoadJsonDao jsonDao = new LoadJsonDao();
 
     public void startSimulation(){
         printWelcomePage();
-        jsonDao.load();
-        Map map = new Map().generateMap();
+        Properties properties = new LoadJsonDao().load();
+        Field field = Field.builder()
+                .fieldSize(new int[properties.getFieldLength()][properties.getFieldWidth()])
+                .build();
+
     }
 
     private void printWelcomePage() {

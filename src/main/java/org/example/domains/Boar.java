@@ -1,11 +1,29 @@
 package org.example.domains;
 
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
-public class Boar extends Herbivore{
+@Setter
+public class Boar extends Herbivore {
 
-    public Boar(double weight, double max_satiety, int max_amount_in_cell, int speed) {
-        super(weight, max_satiety, max_amount_in_cell, speed);
+    private double weight;
+    private double max_satiety;
+    private int max_amount_in_cell;
+    private int speed;
+
+    @Override
+    public void eat() {
+
+    }
+
+    @Override
+    public void move() {
+
+    }
+
+    @Override
+    public void reproduce() {
+
     }
 }

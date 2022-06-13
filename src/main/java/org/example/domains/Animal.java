@@ -1,38 +1,16 @@
 package org.example.domains;
 
-public class Animal {
+public abstract class Animal {
 
-    double weight;
-    double max_satiety;
-    int max_amount_in_cell;
-    int speed;
+    private double weight;
+    private double max_satiety;
+    private int max_amount_in_cell;
+    private int speed;
 
-    public Animal(double weight, double max_satiety, int max_amount_in_cell, int speed) {
-        this.weight = weight;
-        this.max_satiety = max_satiety;
-        this.max_amount_in_cell = max_amount_in_cell;
-        this.speed = speed;
-    }
+    public abstract void eat();
 
-    public void eat() {
+    public abstract void move();
 
-    }
+    public abstract void reproduce();
 
-    public void move() {
-
-    }
-
-    public void reproduce() {
-
-    }
-
-    @Override
-    public String toString() {
-        return "Animal{" +
-                "weight=" + weight +
-                ", max_satiety=" + max_satiety +
-                ", max_amount_in_cell=" + max_amount_in_cell +
-                ", speed=" + speed +
-                '}';
-    }
 }

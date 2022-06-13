@@ -1,11 +1,12 @@
 package org.example.domains;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+
+import java.util.Objects;
 
 @Getter
 @Setter
-public class Snake extends Predator {
+public class Wolf extends Predator {
 
     private double weight;
     private double max_satiety;
