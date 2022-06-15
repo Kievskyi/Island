@@ -6,9 +6,9 @@ import lombok.Data;
 @Data
 public class Properties {
 
-    @JsonProperty("Field length")
+    @JsonProperty("Area length")
     private int fieldLength;
-    @JsonProperty("Field width")
+    @JsonProperty("Area width")
     private int fieldWidth;
 
     public Properties(int fieldLength, int fieldWidth) {

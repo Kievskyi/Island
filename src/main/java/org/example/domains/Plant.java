@@ -7,7 +7,8 @@ import lombok.Setter;
 @Setter
 public class Plant {
 
-    int max_amount_in_cell;
-    int weight;
+    private String kind_of_animal = "Plant";
+    private int max_amount_in_cell = 200;
+    private int weight = 1;
 
 }
