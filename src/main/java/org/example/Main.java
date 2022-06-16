@@ -8,14 +8,14 @@ public class Main {
         consoleController.showMainPage();
 
 
-        /*
-        it's a converter
 
-//        for(char c : new StringBuilder().appendCodePoint(0x1F7EB).toString().toCharArray()) {
+//        it's a converter
+
+//        for(char c : new StringBuilder().appendCodePoint(0x2694).toString().toCharArray()) {
 //            System.out.print("\\u" + String.valueOf(Integer.toHexString(c)));
 //        }
 //        System.out.println();
-         */
+
     }
 }
 

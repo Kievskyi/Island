@@ -41,4 +41,19 @@ public class AnimalData {
         return null;
     }
 
+    public Map<Animal, List<Animal>> getAnimalsMap() {
+        return animalsMap;
+    }
+
+    public void setAnimalsMap(Map<Animal, List<Animal>> animalsMap) {
+        this.animalsMap = animalsMap;
+    }
+
+    public List<Animal> getAnimalList() {
+        return animalList;
+    }
+
+    public void setAnimalList(List<Animal> animalList) {
+        this.animalList = animalList;
+    }
 }

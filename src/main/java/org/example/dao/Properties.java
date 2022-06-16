@@ -1,9 +1,7 @@
 package org.example.dao;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Data;
 
-@Data
 public class Properties {
 
     @JsonProperty("Area length")
@@ -17,6 +15,22 @@ public class Properties {
     }
 
     public Properties() {
+    }
+
+    public int getFieldLength() {
+        return fieldLength;
+    }
+
+    public void setFieldLength(int fieldLength) {
+        this.fieldLength = fieldLength;
+    }
+
+    public int getFieldWidth() {
+        return fieldWidth;
+    }
+
+    public void setFieldWidth(int fieldWidth) {
+        this.fieldWidth = fieldWidth;
     }
 
     @Override
