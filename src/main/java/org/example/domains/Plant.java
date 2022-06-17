@@ -1,9 +1,11 @@
 package org.example.domains;
 
+import org.example.dao.AreaData;
 import org.example.utils.AnimalIcons;
 
 public class Plant {
 
+    private AreaData areaData = AreaData.getInstance();
     private String icon = AnimalIcons.PLANT.getIcon();
     private String kind_of_animal = "Plant";
     private int max_amount_in_cell = 200;

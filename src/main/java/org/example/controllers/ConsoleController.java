@@ -1,8 +1,8 @@
 package org.example.controllers;
 
+import org.example.dao.AreaData;
 import org.example.dao.JsonDao;
 import org.example.dao.Properties;
-import org.example.domains.Area;
 import org.example.domains.Cell;
 import org.example.utils.Statistic;
 
@@ -40,23 +40,23 @@ public class ConsoleController {
 
     private void startSimulation() {
         Properties properties = new JsonDao().load();
-        Area area = generateSimulation(properties);
+        AreaController area = generateSimulation(properties);
 
         ScheduledExecutorService executorService = Executors.newScheduledThreadPool(4);
-        executorService.scheduleAtFixedRate(area, 0, 5, TimeUnit.SECONDS);
-        executorService.scheduleAtFixedRate(new Statistic(), 0, 5, TimeUnit.SECONDS);
+        executorService.scheduleAtFixedRate(area, 2, 5, TimeUnit.SECONDS);
+        executorService.scheduleAtFixedRate(new Statistic(), 2, 5, TimeUnit.SECONDS);
 
         try {
-            Thread.sleep(12000);
+            Thread.sleep(20000);
             executorService.shutdown();
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
     }
 
-    private Area generateSimulation(Properties properties) {
-        Area area = new Area();
-        area.setArea(new Cell[properties.getFieldWidth()][properties.getFieldLength()]);
+    private AreaController generateSimulation(Properties properties) {
+        AreaController area = new AreaController();
+        area.setAreaData(new Cell[properties.getFieldWidth()][properties.getFieldLength()]);
         area.generateArea();
         area.generatePlants();
         area.generateAnimals();

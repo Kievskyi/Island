@@ -3,13 +3,10 @@ package org.example.dao;
 import org.example.domains.*;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class AnimalData {
 
-    private Map<Animal, List<Animal>> animalsMap = new HashMap<>();
     private List<Animal> animalList = new ArrayList<>();
 
     {
@@ -28,25 +25,6 @@ public class AnimalData {
         animalList.add(new Sheep());
         animalList.add(new Snake());
         animalList.add(new Wolf());
-    }
-
-    private Map<Animal, List<Animal>> initializeDataMap() {
-
-//        for (int i = 0; i < animalList.size(); i++) {
-//            var a = animalList.get(i);
-//
-//
-//            animalsMap.put(animalList.get(i), )
-//        }
-        return null;
-    }
-
-    public Map<Animal, List<Animal>> getAnimalsMap() {
-        return animalsMap;
-    }
-
-    public void setAnimalsMap(Map<Animal, List<Animal>> animalsMap) {
-        this.animalsMap = animalsMap;
     }
 
     public List<Animal> getAnimalList() {

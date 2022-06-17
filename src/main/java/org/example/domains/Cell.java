@@ -4,19 +4,23 @@ import lombok.Getter;
 import lombok.Setter;
 import org.example.utils.AnimalIcons;
 
+import java.util.ArrayList;
+
 
 public class Cell {
 
     private String groundIcon = AnimalIcons.GROUND.getIcon();
-    private Animal animal;
+    private ArrayList<Animal> animal = new ArrayList<>();
     private Plant plant;
 
     public void showCell() {
-        if (animal == null && plant == null) {
+        if (animal.size() == 0 && plant == null) {
             System.out.print(groundIcon);
-        } else if (animal != null) {
-            System.out.print(animal.getIcon());
-        } else if (plant != null) {
+        } else if (animal.size() == 1 && plant == null) {
+            System.out.print(animal.get(0).getIcon());
+        }else if (animal.size() > 1 && plant == null) {
+            System.out.print(AnimalIcons.BATTLE.getIcon());
+        } else if (animal.size() == 0 && plant != null) {
             System.out.print(plant.getIcon());
         }
     }
@@ -29,12 +33,21 @@ public class Cell {
         this.groundIcon = groundIcon;
     }
 
-    public Animal getAnimal() {
+//    public Animal getAnimal() {
+//        return animal;
+//    }
+//
+//    public void setAnimal(Animal animal) {
+//        this.animal = animal;
+//    }
+
+
+    public ArrayList<Animal> getAnimal() {
         return animal;
     }
 
     public void setAnimal(Animal animal) {
-        this.animal = animal;
+        this.animal.add(animal);
     }
 
     public Plant getPlant() {

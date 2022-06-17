@@ -1,6 +1,8 @@
 package org.example.domains;
 
 
+import org.example.dao.AreaData;
+
 public abstract class Animal {
 
     private String icon;
@@ -9,12 +11,21 @@ public abstract class Animal {
     private double max_satiety;
     private int max_amount_in_cell;
     private int speed;
+    private AreaData areaData;
 
-    public abstract void eat();
+    public abstract void eat(Animal animal, int length, int width);
 
-    public abstract void move();
+    public abstract void move(Animal animal, int width, int length);
 
-    public abstract void reproduce();
+    public abstract void reproduce(AreaData areaData);
+
+    public AreaData getAreaData() {
+        return areaData;
+    }
+
+    public void setAreaData(AreaData areaData) {
+        this.areaData = areaData;
+    }
 
     public String getIcon() {
         return icon;
