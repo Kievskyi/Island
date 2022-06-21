@@ -32,8 +32,8 @@ public class ConsoleController {
                 break;
 
             switch (choice) {
-                case 1 -> startSimulation();
-                case 2 -> loadNewProperties();
+                case 1 : startSimulation();
+                case 2 : loadNewProperties();
             }
         } while (true);
     }
@@ -42,16 +42,18 @@ public class ConsoleController {
         Properties properties = new JsonDao().load();
         AreaController area = generateSimulation(properties);
 
-        ScheduledExecutorService executorService = Executors.newScheduledThreadPool(4);
-        executorService.scheduleAtFixedRate(area, 2, 5, TimeUnit.SECONDS);
-        executorService.scheduleAtFixedRate(new Statistic(), 2, 5, TimeUnit.SECONDS);
+        area.run();
 
-        try {
-            Thread.sleep(20000);
-            executorService.shutdown();
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+//        ScheduledExecutorService executorService = Executors.newScheduledThreadPool(4);
+//        executorService.scheduleAtFixedRate(area, 2, 2, TimeUnit.SECONDS);
+//        executorService.scheduleAtFixedRate(new Statistic(), 2, 5, TimeUnit.SECONDS);
+
+//        try {
+////            Thread.sleep(20000);
+////            executorService.shutdown();
+//        } catch (InterruptedException e) {
+//            throw new RuntimeException(e);
+//        }
     }
 
     private AreaController generateSimulation(Properties properties) {

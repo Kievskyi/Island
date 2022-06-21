@@ -2,6 +2,8 @@ package org.example.utils;
 
 public enum AnimalIcons {
 
+    EATPLANT("\uD83C\uDF75"),
+    FEWPREDATORS("\uD83D\uDC3E"),
     BATTLE("\u2694"),
     GROUND("\ud83d\udfeb"),
     BEAR("\uD83D\uDC3B"),

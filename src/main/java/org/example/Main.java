@@ -8,7 +8,6 @@ public class Main {
         consoleController.showMainPage();
 
 
-
 //        it's a converter
 
 //        for(char c : new StringBuilder().appendCodePoint(0x2694).toString().toCharArray()) {
@@ -16,11 +15,6 @@ public class Main {
 //        }
 //        System.out.println();
 
+//TODO after finish the project- we can implement Pattern Fabric (it's easy).
     }
 }
-
-/*
-TODO - our objects of animals and etc. will be in separate ArrayList<Animal>. This lists might be placed in single class which will be initialized before start a multithreading.
-TODO - when will generating a field need to place all animals and plants in a different cells. Otherwise we must write a logic with eat and reproduce in generate method .
-
- */

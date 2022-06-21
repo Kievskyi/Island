@@ -8,6 +8,7 @@ import java.util.List;
 public class AnimalData {
 
     private List<Animal> animalList = new ArrayList<>();
+//    private Map<Animal, List<Animal>> animalsMap = new HashMap<>();
 
     {
         animalList.add(new Bear());
@@ -25,7 +26,22 @@ public class AnimalData {
         animalList.add(new Sheep());
         animalList.add(new Snake());
         animalList.add(new Wolf());
+
+//        initializeMap();
     }
+
+//    private void initializeMap() {
+//
+//        for (int i = 0; i < animalList.size(); i++) {
+//            int random = ThreadLocalRandom.current().nextInt(1, animalList.get(i).getMax_amount_in_cell());
+//            List<Animal> list = new ArrayList<>();
+//            for (int j = 0; j < random; j++) {
+//                list.add(animalList.get(i));
+//            }
+//            animalsMap.put(animalList.get(i), list);
+//        }
+//
+//    }
 
     public List<Animal> getAnimalList() {
         return animalList;

@@ -10,14 +10,23 @@ public abstract class Animal {
     private double weight;
     private double max_satiety;
     private int max_amount_in_cell;
+    private int leftAlive;
     private int speed;
     private AreaData areaData;
 
-    public abstract void eat(Animal animal, int length, int width);
-
+    public void eat(Animal animal, int width, int length){}
+    public void eat(Plant plant, int width, int length){}
     public abstract void move(Animal animal, int width, int length);
 
-    public abstract void reproduce(AreaData areaData);
+    public abstract void reproduce(Animal animal, int width, int length);
+
+    public int getLeftAlive() {
+        return leftAlive;
+    }
+
+    public void setLeftAlive(int leftAlive) {
+        this.leftAlive = leftAlive;
+    }
 
     public AreaData getAreaData() {
         return areaData;
