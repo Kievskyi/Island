@@ -9,6 +9,7 @@ public abstract class Animal {
     private String kind_of_animal;
     private double weight;
     private double max_satiety;
+    private double satiety;
     private int max_amount_in_cell;
     private int leftAlive;
     private int speed;
@@ -19,6 +20,14 @@ public abstract class Animal {
     public abstract void move(Animal animal, int width, int length);
 
     public abstract void reproduce(Animal animal, int width, int length);
+
+    public double getSatiety() {
+        return satiety;
+    }
+
+    public void setSatiety(double satiety) {
+        this.satiety = satiety;
+    }
 
     public int getLeftAlive() {
         return leftAlive;

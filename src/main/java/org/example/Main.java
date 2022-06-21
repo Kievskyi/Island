@@ -14,7 +14,5 @@ public class Main {
 //            System.out.print("\\u" + String.valueOf(Integer.toHexString(c)));
 //        }
 //        System.out.println();
-
-//TODO after finish the project- we can implement Pattern Fabric (it's easy).
     }
 }

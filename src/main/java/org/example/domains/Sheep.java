@@ -66,20 +66,21 @@ public class Sheep extends Herbivore {
         int randomSpeed = ThreadLocalRandom.current().nextInt(0, maxSpeed + 1);
         int randomCorner = ThreadLocalRandom.current().nextInt(0, 3);
         int randomBounds = ThreadLocalRandom.current().nextInt(0, 6);
+        int randomCentralBounds = ThreadLocalRandom.current().nextInt(0, 4);
         int randomCenter = ThreadLocalRandom.current().nextInt(0, 8);
         if (width == widthArea && length == lengthArea) {
             // bottom right corner
             if (randomCorner == 0) {
                 //to up
-                areaData.getArea()[widthArea - randomSpeed][lengthArea].setAnimals_in_cell(animal);
+                areaData.getArea()[width - randomSpeed][length].setAnimals_in_cell(animal);
                 areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
             } else if (randomCorner == 1) {
                 //diagonally
-                areaData.getArea()[widthArea - randomSpeed][lengthArea - randomSpeed].setAnimals_in_cell(animal);
+                areaData.getArea()[width - randomSpeed][length - randomSpeed].setAnimals_in_cell(animal);
                 areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
             } else if (randomCorner == 2) {
                 //to left
-                areaData.getArea()[widthArea][lengthArea - randomSpeed].setAnimals_in_cell(animal);
+                areaData.getArea()[width][length - randomSpeed].setAnimals_in_cell(animal);
                 areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
             }
         } else if (length == 0 && width == 0) {
@@ -105,7 +106,7 @@ public class Sheep extends Herbivore {
                 areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
             } else if (randomCorner == 1) {
                 //diagonally
-                areaData.getArea()[widthArea + randomSpeed][length - randomSpeed].setAnimals_in_cell(animal);
+                areaData.getArea()[width + randomSpeed][length - randomSpeed].setAnimals_in_cell(animal);
                 areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
             } else if (randomCorner == 2) {
                 //to down
@@ -116,7 +117,7 @@ public class Sheep extends Herbivore {
             //bottom left corner
             if (randomCorner == 0) {
                 //to up
-                areaData.getArea()[widthArea - randomSpeed][length].setAnimals_in_cell(animal);
+                areaData.getArea()[width - randomSpeed][length].setAnimals_in_cell(animal);
                 areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
             } else if (randomCorner == 1) {
                 //diagonally
@@ -303,7 +304,7 @@ public class Sheep extends Herbivore {
                 || ((width >= maxSpeed && width <= widthArea - maxSpeed) && (length > 0 && length < maxSpeed))
                 || ((width >= maxSpeed && width <= widthArea - maxSpeed) && (length > lengthArea - maxSpeed && length < lengthArea))) {
             //central bounds
-            if (randomCenter == 0) {
+            if (randomCentralBounds == 0) {
                 //to left
                 if (length - randomSpeed < 0) {
                     areaData.getArea()[width][0].setAnimals_in_cell(animal);
@@ -312,7 +313,7 @@ public class Sheep extends Herbivore {
                     areaData.getArea()[width][length - randomSpeed].setAnimals_in_cell(animal);
                     areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
                 }
-            } else if (randomBounds == 1) {
+            } else if (randomCentralBounds == 1) {
                 //to right
                 if (randomSpeed + length > lengthArea) {
                     areaData.getArea()[width][lengthArea].setAnimals_in_cell(animal);
@@ -321,7 +322,7 @@ public class Sheep extends Herbivore {
                     areaData.getArea()[width][length + randomSpeed].setAnimals_in_cell(animal);
                     areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
                 }
-            } else if (randomBounds == 2) {
+            } else if (randomCentralBounds == 2) {
                 //to down
                 if (width + randomSpeed > widthArea) {
                     areaData.getArea()[widthArea][length].setAnimals_in_cell(animal);
@@ -330,7 +331,7 @@ public class Sheep extends Herbivore {
                     areaData.getArea()[width + randomSpeed][length].setAnimals_in_cell(animal);
                     areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
                 }
-            } else if (randomCenter == 5) {
+            } else if (randomCentralBounds == 3) {
                 //to up
                 if (width - randomSpeed < 0) {
                     areaData.getArea()[0][length].setAnimals_in_cell(animal);
@@ -339,6 +340,43 @@ public class Sheep extends Herbivore {
                     areaData.getArea()[width - randomSpeed][length].setAnimals_in_cell(animal);
                     areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
                 }
+            }
+        } else if ((width >= maxSpeed && width <= widthArea - maxSpeed) && (length >= maxSpeed && length <= lengthArea - maxSpeed)) {
+            //center
+            if (randomCenter == 0) {
+                //to left
+                areaData.getArea()[width][length - randomSpeed].setAnimals_in_cell(animal);
+                areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
+            } else if (randomCenter == 1) {
+                //to right
+                areaData.getArea()[width][length + randomSpeed].setAnimals_in_cell(animal);
+                areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
+            } else if (randomCenter == 2) {
+                //to down
+                areaData.getArea()[width + randomSpeed][length].setAnimals_in_cell(animal);
+                areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
+            } else if (randomCenter == 3) {
+                //left bottom diagonal
+                areaData.getArea()[width + randomSpeed][length - randomSpeed].setAnimals_in_cell(animal);
+                areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
+            } else if (randomCenter == 4) {
+                //right bottom diagonal
+                areaData.getArea()[width + randomSpeed][length + randomSpeed].setAnimals_in_cell(animal);
+                areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
+            } else if (randomCenter == 5) {
+                //to up
+                areaData.getArea()[width - randomSpeed][length].setAnimals_in_cell(animal);
+                areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
+            } else if (randomCenter == 6) {
+                //left upper diagonal
+                areaData.getArea()[width - randomSpeed][length - randomSpeed].setAnimals_in_cell(animal);
+                areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
+            } else if (randomCenter == 7) {
+                //right upper diagonal
+                areaData.getArea()[width - randomSpeed][length + randomSpeed].setAnimals_in_cell(animal);
+                areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
+            }
+        }
 //            } else if (randomBounds == 3) {
 //                //left bottom diagonal
 //                //весь низ за пределы
@@ -518,6 +556,7 @@ public class Sheep extends Herbivore {
 //                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
 //                    }
 //                }
+
 //            } else if (randomCenter == 6) {
 //                //left upper diagonal
 //                //left bounds
@@ -560,8 +599,8 @@ public class Sheep extends Herbivore {
 //                    areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
 //                }
 //            } else if (randomCenter == 7) {
-//                //right upper diagonal
-//                //left bounds
+        //right upper diagonal
+        //left bounds
 //                if ((width > 0 && width <= widthArea) && length > 0 && length <= maxSpeed) {
 //                    if (length == 1 && randomSpeed > length) {
 //                        areaData.getArea()[width - 1][length + 1].setAnimals_in_cell(animal);
@@ -611,43 +650,8 @@ public class Sheep extends Herbivore {
 //                    areaData.getArea()[width - randomSpeed][length + randomSpeed].setAnimals_in_cell(animal);
 //                    areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
 //                }
+//            }
 
-            }
-        } else if ((width >= maxSpeed && width <= widthArea - maxSpeed) && (length >= maxSpeed && length <= lengthArea - maxSpeed)) {
-            //center
-            if (randomCenter == 0) {
-                //to left
-                areaData.getArea()[width][length - randomSpeed].setAnimals_in_cell(animal);
-                areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
-            } else if (randomBounds == 1) {
-                //to right
-                areaData.getArea()[width][length + randomSpeed].setAnimals_in_cell(animal);
-                areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
-            } else if (randomBounds == 2) {
-                //to down
-                areaData.getArea()[width + randomSpeed][length].setAnimals_in_cell(animal);
-                areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
-            } else if (randomBounds == 3) {
-                //left bottom diagonal
-                areaData.getArea()[width + randomSpeed][length - randomSpeed].setAnimals_in_cell(animal);
-                areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
-            } else if (randomBounds == 4) {
-                //right bottom diagonal
-                areaData.getArea()[width + randomSpeed][length + randomSpeed].setAnimals_in_cell(animal);
-                areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
-            } else if (randomCenter == 5) {
-                //to up
-                areaData.getArea()[width - randomSpeed][length].setAnimals_in_cell(animal);
-                areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
-            } else if (randomCenter == 6) {
-                //left upper diagonal
-                areaData.getArea()[width - randomSpeed][length - randomSpeed].setAnimals_in_cell(animal);
-                areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
-            } else if (randomCenter == 7) {
-                //right upper diagonal
-                areaData.getArea()[width - randomSpeed][length + randomSpeed].setAnimals_in_cell(animal);
-                areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
-            }
 //        } else if ((width >= 1 && width < widthArea) && randomSpeed <= (lengthArea - length)) {
 //            //right central bounds
 //            if (randomCenter == 0) {
@@ -788,10 +792,7 @@ public class Sheep extends Herbivore {
 //                areaData.getArea()[width - randomSpeed][length + randomSpeed].setAnimals_in_cell(animal);
 //                areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
 //            }
-        }
-
     }
-
     @Override
     public void reproduce(Animal animal, int width, int length) {
 

@@ -65,20 +65,21 @@ public class Rabbit extends Herbivore {
         int randomSpeed = ThreadLocalRandom.current().nextInt(0, maxSpeed + 1);
         int randomCorner = ThreadLocalRandom.current().nextInt(0, 3);
         int randomBounds = ThreadLocalRandom.current().nextInt(0, 6);
+        int randomCentralBounds = ThreadLocalRandom.current().nextInt(0, 4);
         int randomCenter = ThreadLocalRandom.current().nextInt(0, 8);
         if (width == widthArea && length == lengthArea) {
             // bottom right corner
             if (randomCorner == 0) {
                 //to up
-                areaData.getArea()[widthArea - randomSpeed][lengthArea].setAnimals_in_cell(animal);
+                areaData.getArea()[width - randomSpeed][length].setAnimals_in_cell(animal);
                 areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
             } else if (randomCorner == 1) {
                 //diagonally
-                areaData.getArea()[widthArea - randomSpeed][lengthArea - randomSpeed].setAnimals_in_cell(animal);
+                areaData.getArea()[width - randomSpeed][length - randomSpeed].setAnimals_in_cell(animal);
                 areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
             } else if (randomCorner == 2) {
                 //to left
-                areaData.getArea()[widthArea][lengthArea - randomSpeed].setAnimals_in_cell(animal);
+                areaData.getArea()[width][length - randomSpeed].setAnimals_in_cell(animal);
                 areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
             }
         } else if (length == 0 && width == 0) {
@@ -104,7 +105,7 @@ public class Rabbit extends Herbivore {
                 areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
             } else if (randomCorner == 1) {
                 //diagonally
-                areaData.getArea()[widthArea + randomSpeed][length - randomSpeed].setAnimals_in_cell(animal);
+                areaData.getArea()[width + randomSpeed][length - randomSpeed].setAnimals_in_cell(animal);
                 areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
             } else if (randomCorner == 2) {
                 //to down
@@ -115,7 +116,7 @@ public class Rabbit extends Herbivore {
             //bottom left corner
             if (randomCorner == 0) {
                 //to up
-                areaData.getArea()[widthArea - randomSpeed][length].setAnimals_in_cell(animal);
+                areaData.getArea()[width - randomSpeed][length].setAnimals_in_cell(animal);
                 areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
             } else if (randomCorner == 1) {
                 //diagonally
@@ -302,7 +303,7 @@ public class Rabbit extends Herbivore {
                 || ((width >= maxSpeed && width <= widthArea - maxSpeed) && (length > 0 && length < maxSpeed))
                 || ((width >= maxSpeed && width <= widthArea - maxSpeed) && (length > lengthArea - maxSpeed && length < lengthArea))) {
             //central bounds
-            if (randomCenter == 0) {
+            if (randomCentralBounds == 0) {
                 //to left
                 if (length - randomSpeed < 0) {
                     areaData.getArea()[width][0].setAnimals_in_cell(animal);
@@ -311,7 +312,7 @@ public class Rabbit extends Herbivore {
                     areaData.getArea()[width][length - randomSpeed].setAnimals_in_cell(animal);
                     areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
                 }
-            } else if (randomBounds == 1) {
+            } else if (randomCentralBounds == 1) {
                 //to right
                 if (randomSpeed + length > lengthArea) {
                     areaData.getArea()[width][lengthArea].setAnimals_in_cell(animal);
@@ -320,7 +321,7 @@ public class Rabbit extends Herbivore {
                     areaData.getArea()[width][length + randomSpeed].setAnimals_in_cell(animal);
                     areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
                 }
-            } else if (randomBounds == 2) {
+            } else if (randomCentralBounds == 2) {
                 //to down
                 if (width + randomSpeed > widthArea) {
                     areaData.getArea()[widthArea][length].setAnimals_in_cell(animal);
@@ -329,186 +330,7 @@ public class Rabbit extends Herbivore {
                     areaData.getArea()[width + randomSpeed][length].setAnimals_in_cell(animal);
                     areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
                 }
-            } else if (randomBounds == 3) {
-                //left bottom diagonal
-                //весь низ за пределы
-                if (width + randomSpeed >= widthArea && length > randomSpeed) {
-                    areaData.getArea()[widthArea][length - (widthArea - width)].setAnimals_in_cell(animal);
-                    areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
-                    //левый нижний угол за пределы
-                } else if (width + randomSpeed >= widthArea && length == 1 && randomSpeed > length) {
-                    areaData.getArea()[width + 1][0].setAnimals_in_cell(animal);
-                    areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
-                } else if (width + randomSpeed >= widthArea && length == 2 && randomSpeed > length) {
-                    if (width == 17) {
-                        areaData.getArea()[width + 2][length - 2].setAnimals_in_cell(animal);
-                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
-                    } else if (width == 18) {
-                        areaData.getArea()[width + 1][length - 1].setAnimals_in_cell(animal);
-                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
-                    }
-                } else if (width + randomSpeed >= widthArea && length == 3 && randomSpeed > length) {
-                    if (width == 17) {
-                        areaData.getArea()[width + 2][length - 2].setAnimals_in_cell(animal);
-                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
-                    } else if (width == 18) {
-                        areaData.getArea()[width + 1][length - 1].setAnimals_in_cell(animal);
-                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
-                    } else if (width == 16) {
-                        areaData.getArea()[width + 3][length - 3].setAnimals_in_cell(animal);
-                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
-                    }
-                } else if (width + randomSpeed >= widthArea && length == 4 && randomSpeed == length) {
-                    if (width == 17) {
-                        areaData.getArea()[width + 2][length - 2].setAnimals_in_cell(animal);
-                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
-                    } else if (width == 18) {
-                        areaData.getArea()[width + 1][length - 1].setAnimals_in_cell(animal);
-                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
-                    } else if (width == 16) {
-                        areaData.getArea()[width + 3][length - 3].setAnimals_in_cell(animal);
-                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
-                    } else if (width == 15) {
-                        areaData.getArea()[width + 4][length - 4].setAnimals_in_cell(animal);
-                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
-                    }
-                    //left central bounds
-                } else if ((width > 0 && width <= widthArea - maxSpeed) && length > 0 && length <= maxSpeed) {
-                    if (length == 1 && randomSpeed > length) {
-                        areaData.getArea()[width + 1][length - 1].setAnimals_in_cell(animal);
-                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
-                    } else if (length == 2 && randomSpeed > length) {
-                        areaData.getArea()[width + 2][length - 2].setAnimals_in_cell(animal);
-                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
-                    } else if (length == 3 && randomSpeed > length) {
-                        areaData.getArea()[width + 3][length - 3].setAnimals_in_cell(animal);
-                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
-                    } else if (length == 4 && randomSpeed == length) {
-                        areaData.getArea()[width + 4][length - 4].setAnimals_in_cell(animal);
-                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
-                    }
-                    //top central bounds
-                } else if ((length > 0 && length <= lengthArea - maxSpeed) && width > 0 && width <= maxSpeed) {
-                    if (length == 1 && randomSpeed > length) {
-                        areaData.getArea()[width + 1][length - 1].setAnimals_in_cell(animal);
-                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
-                    } else if (length == 2 && randomSpeed > length) {
-                        areaData.getArea()[width + 2][length - 2].setAnimals_in_cell(animal);
-                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
-                    } else if (length == 3 && randomSpeed > length) {
-                        areaData.getArea()[width + 3][length - 3].setAnimals_in_cell(animal);
-                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
-                    } else if (length == 4 && randomSpeed == length) {
-                        areaData.getArea()[width + 4][length - 4].setAnimals_in_cell(animal);
-                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
-                    }
-                    //right central bounds
-                } else if ((width > 0 && width <= widthArea - maxSpeed) && length >= lengthArea - maxSpeed) {
-                    if (length == 1 && randomSpeed > length) {
-                        areaData.getArea()[width + randomSpeed][length - randomSpeed].setAnimals_in_cell(animal);
-                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
-                    }
-                }
-            } else if (randomBounds == 4) {
-                //right bottom diagonal
-
-                //left central bounds
-                if ((width > 0 && width <= widthArea) && length > 0 && length <= maxSpeed) {
-                    if (length == 1 && randomSpeed > length) {
-                        areaData.getArea()[width + 1][length + 1].setAnimals_in_cell(animal);
-                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
-                    } else if (length == 2 && randomSpeed > length) {
-                        areaData.getArea()[width + 2][length + 2].setAnimals_in_cell(animal);
-                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
-                    } else if (length == 3 && randomSpeed > length) {
-                        areaData.getArea()[width + 3][length + 3].setAnimals_in_cell(animal);
-                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
-                    } else if (length == 4 && randomSpeed == length) {
-                        areaData.getArea()[width + 4][length + 4].setAnimals_in_cell(animal);
-                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
-                    }
-                    //top central bounds
-                } else if ((length > 0 && length < lengthArea) && width > 0 && width <= maxSpeed) {
-                    if (length == lengthArea - 1 && randomSpeed > length) {
-                        areaData.getArea()[width + 1][length + 1].setAnimals_in_cell(animal);
-                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
-                    } else if (length == lengthArea - 2 && randomSpeed > length) {
-                        areaData.getArea()[width + 2][length + 2].setAnimals_in_cell(animal);
-                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
-                    } else if (length == lengthArea - 3 && randomSpeed > length) {
-                        areaData.getArea()[width + 3][length + 3].setAnimals_in_cell(animal);
-                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
-                    } else if (length == lengthArea - 4 && randomSpeed == length) {
-                        areaData.getArea()[width + 4][length + 4].setAnimals_in_cell(animal);
-                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
-                    }
-                    //right bottom corner central bounds
-                } else if (width + randomSpeed >= widthArea && length == lengthArea - 1 && randomSpeed > length) {
-                    areaData.getArea()[width + 1][length + 1].setAnimals_in_cell(animal);
-                    areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
-                } else if (width + randomSpeed >= widthArea && length == lengthArea - 2 && randomSpeed > length) {
-                    if (width == 17) {
-                        areaData.getArea()[width + 2][length + 2].setAnimals_in_cell(animal);
-                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
-                    } else if (width == 18) {
-                        areaData.getArea()[width + 1][length + 1].setAnimals_in_cell(animal);
-                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
-                    }
-                } else if (width + randomSpeed >= widthArea && length == lengthArea - 3 && randomSpeed > length) {
-                    if (width == 17) {
-                        areaData.getArea()[width + 2][length + 2].setAnimals_in_cell(animal);
-                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
-                    } else if (width == 18) {
-                        areaData.getArea()[width + 1][length + 1].setAnimals_in_cell(animal);
-                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
-                    } else if (width == 16) {
-                        areaData.getArea()[width + 3][length + 3].setAnimals_in_cell(animal);
-                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
-                    }
-                } else if (width + randomSpeed >= widthArea && length == lengthArea - 4 && randomSpeed == length) {
-                    if (width == 17) {
-                        areaData.getArea()[width + 2][length + 2].setAnimals_in_cell(animal);
-                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
-                    } else if (width == 18) {
-                        areaData.getArea()[width + 1][length + 1].setAnimals_in_cell(animal);
-                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
-                    } else if (width == 16) {
-                        areaData.getArea()[width + 3][length + 3].setAnimals_in_cell(animal);
-                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
-                    } else if (width == 15) {
-                        areaData.getArea()[width + 4][length + 4].setAnimals_in_cell(animal);
-                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
-                    }
-                } else if ((width > maxSpeed && width < widthArea - maxSpeed) && (length > lengthArea - maxSpeed && length < lengthArea)) {
-                    if (length == lengthArea - 1 && randomSpeed > length) {
-                        areaData.getArea()[width + 1][length + 1].setAnimals_in_cell(animal);
-                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
-                    } else if (length == lengthArea - 2 && randomSpeed > length) {
-                        areaData.getArea()[width + 2][length + 2].setAnimals_in_cell(animal);
-                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
-                    } else if (length == lengthArea - 3 && randomSpeed > length) {
-                        areaData.getArea()[width + 3][length + 3].setAnimals_in_cell(animal);
-                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
-                    } else if (length == lengthArea - 4 && randomSpeed == length) {
-                        areaData.getArea()[width + 4][length + 4].setAnimals_in_cell(animal);
-                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
-                    }
-                } else if ((width > widthArea - maxSpeed && width < widthArea) && (length > maxSpeed && length < lengthArea - maxSpeed)) {
-                    if (width == 17) {
-                        areaData.getArea()[width + 2][length + 2].setAnimals_in_cell(animal);
-                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
-                    } else if (width == 18) {
-                        areaData.getArea()[width + 1][length + 1].setAnimals_in_cell(animal);
-                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
-                    } else if (width == 16) {
-                        areaData.getArea()[width + 3][length + 3].setAnimals_in_cell(animal);
-                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
-                    } else if (width == 15) {
-                        areaData.getArea()[width + 4][length + 4].setAnimals_in_cell(animal);
-                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
-                    }
-                }
-            } else if (randomCenter == 5) {
+            } else if (randomCentralBounds == 3) {
                 //to up
                 if (width - randomSpeed < 0) {
                     areaData.getArea()[0][length].setAnimals_in_cell(animal);
@@ -517,100 +339,6 @@ public class Rabbit extends Herbivore {
                     areaData.getArea()[width - randomSpeed][length].setAnimals_in_cell(animal);
                     areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
                 }
-            } else if (randomCenter == 6) {
-                //left upper diagonal
-                //left bounds
-                if ((width > 0 && width <= widthArea) && length > 0 && length <= maxSpeed) {
-                    if (length == 1 && randomSpeed > length) {
-                        areaData.getArea()[width - 1][length - 1].setAnimals_in_cell(animal);
-                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
-                    } else if (length == 2 && randomSpeed > length) {
-                        areaData.getArea()[width - 2][length - 2].setAnimals_in_cell(animal);
-                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
-                    } else if (length == 3 && randomSpeed > length) {
-                        areaData.getArea()[width - 3][length - 3].setAnimals_in_cell(animal);
-                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
-                    } else if (length == 4 && randomSpeed == length) {
-                        areaData.getArea()[width - 4][length - 4].setAnimals_in_cell(animal);
-                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
-                    }
-                    //top central bounds
-                } else if ((length > maxSpeed && length < lengthArea) && width > 0 && width <= maxSpeed) {
-                    if (width == 1 && randomSpeed > width) {
-                        areaData.getArea()[width - 1][length - 1].setAnimals_in_cell(animal);
-                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
-                    } else if (width == 2 && randomSpeed > width) {
-                        areaData.getArea()[width - 2][length - 2].setAnimals_in_cell(animal);
-                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
-                    } else if (width == 3 && randomSpeed > width) {
-                        areaData.getArea()[width - 3][length - 3].setAnimals_in_cell(animal);
-                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
-                    } else if (width == 4 && randomSpeed > width) {
-                        areaData.getArea()[width - 4][length - 4].setAnimals_in_cell(animal);
-                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
-                    }
-                    //right bounds
-                } else if (width > maxSpeed && length > lengthArea - maxSpeed) {
-                    areaData.getArea()[width - randomSpeed][length - randomSpeed].setAnimals_in_cell(animal);
-                    areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
-                    //bottom bounds
-                } else if ((width >= widthArea - maxSpeed) && (length > maxSpeed && length < lengthArea - maxSpeed)) {
-                    areaData.getArea()[width - randomSpeed][length - randomSpeed].setAnimals_in_cell(animal);
-                    areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
-                }
-            } else if (randomCenter == 7) {
-                //right upper diagonal
-                //left bounds
-                if ((width > 0 && width <= widthArea) && length > 0 && length <= maxSpeed) {
-                    if (length == 1 && randomSpeed > length) {
-                        areaData.getArea()[width - 1][length + 1].setAnimals_in_cell(animal);
-                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
-                    } else if (length == 2 && randomSpeed > length) {
-                        areaData.getArea()[width - 2][length + 2].setAnimals_in_cell(animal);
-                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
-                    } else if (length == 3 && randomSpeed > length) {
-                        areaData.getArea()[width - 3][length + 3].setAnimals_in_cell(animal);
-                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
-                    } else if (length == 4 && randomSpeed == length) {
-                        areaData.getArea()[width - 4][length + 4].setAnimals_in_cell(animal);
-                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
-                    }
-                    //top central bounds
-                } else if ((length > maxSpeed && length < lengthArea) && width > 0 && width <= maxSpeed) {
-                    if (width == 1 && randomSpeed > width) {
-                        areaData.getArea()[width - 1][length + 1].setAnimals_in_cell(animal);
-                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
-                    } else if (width == 2 && randomSpeed > width) {
-                        areaData.getArea()[width - 2][length + 2].setAnimals_in_cell(animal);
-                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
-                    } else if (width == 3 && randomSpeed > width) {
-                        areaData.getArea()[width - 3][length + 3].setAnimals_in_cell(animal);
-                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
-                    } else if (width == 4 && randomSpeed > width) {
-                        areaData.getArea()[width - 4][length + 4].setAnimals_in_cell(animal);
-                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
-                    }
-                    //right bounds
-                } else if (width > maxSpeed && length > lengthArea - maxSpeed) {
-                    if (length == lengthArea - 1 && randomSpeed > length) {
-                        areaData.getArea()[width - 1][length + 1].setAnimals_in_cell(animal);
-                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
-                    } else if (length == lengthArea - 2 && randomSpeed > length) {
-                        areaData.getArea()[width - 2][length + 2].setAnimals_in_cell(animal);
-                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
-                    } else if (length == lengthArea - 3 && randomSpeed > length) {
-                        areaData.getArea()[width - 3][length + 3].setAnimals_in_cell(animal);
-                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
-                    } else if (length == lengthArea - 4 && randomSpeed == length) {
-                        areaData.getArea()[width - 4][length + 4].setAnimals_in_cell(animal);
-                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
-                    }
-                    //bottom bounds
-                } else if ((width >= widthArea - maxSpeed) && (length > maxSpeed && length < lengthArea - maxSpeed)) {
-                    areaData.getArea()[width - randomSpeed][length + randomSpeed].setAnimals_in_cell(animal);
-                    areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
-                }
-
             }
         } else if ((width >= maxSpeed && width <= widthArea - maxSpeed) && (length >= maxSpeed && length <= lengthArea - maxSpeed)) {
             //center
@@ -618,19 +346,19 @@ public class Rabbit extends Herbivore {
                 //to left
                 areaData.getArea()[width][length - randomSpeed].setAnimals_in_cell(animal);
                 areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
-            } else if (randomBounds == 1) {
+            } else if (randomCenter == 1) {
                 //to right
                 areaData.getArea()[width][length + randomSpeed].setAnimals_in_cell(animal);
                 areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
-            } else if (randomBounds == 2) {
+            } else if (randomCenter == 2) {
                 //to down
                 areaData.getArea()[width + randomSpeed][length].setAnimals_in_cell(animal);
                 areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
-            } else if (randomBounds == 3) {
+            } else if (randomCenter == 3) {
                 //left bottom diagonal
                 areaData.getArea()[width + randomSpeed][length - randomSpeed].setAnimals_in_cell(animal);
                 areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
-            } else if (randomBounds == 4) {
+            } else if (randomCenter == 4) {
                 //right bottom diagonal
                 areaData.getArea()[width + randomSpeed][length + randomSpeed].setAnimals_in_cell(animal);
                 areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
@@ -647,6 +375,282 @@ public class Rabbit extends Herbivore {
                 areaData.getArea()[width - randomSpeed][length + randomSpeed].setAnimals_in_cell(animal);
                 areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
             }
+        }
+//            } else if (randomBounds == 3) {
+//                //left bottom diagonal
+//                //весь низ за пределы
+//                if (width + randomSpeed >= widthArea && length > randomSpeed) {
+//                    areaData.getArea()[widthArea][length - (widthArea - width)].setAnimals_in_cell(animal);
+//                    areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
+//                    //левый нижний угол за пределы
+//                } else if (width + randomSpeed >= widthArea && length == 1 && randomSpeed > length) {
+//                    areaData.getArea()[width + 1][0].setAnimals_in_cell(animal);
+//                    areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
+//                } else if (width + randomSpeed >= widthArea && length == 2 && randomSpeed > length) {
+//                    if (width == 17) {
+//                        areaData.getArea()[width + 2][length - 2].setAnimals_in_cell(animal);
+//                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
+//                    } else if (width == 18) {
+//                        areaData.getArea()[width + 1][length - 1].setAnimals_in_cell(animal);
+//                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
+//                    }
+//                } else if (width + randomSpeed >= widthArea && length == 3 && randomSpeed > length) {
+//                    if (width == 17) {
+//                        areaData.getArea()[width + 2][length - 2].setAnimals_in_cell(animal);
+//                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
+//                    } else if (width == 18) {
+//                        areaData.getArea()[width + 1][length - 1].setAnimals_in_cell(animal);
+//                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
+//                    } else if (width == 16) {
+//                        areaData.getArea()[width + 3][length - 3].setAnimals_in_cell(animal);
+//                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
+//                    }
+//                } else if (width + randomSpeed >= widthArea && length == 4 && randomSpeed == length) {
+//                    if (width == 17) {
+//                        areaData.getArea()[width + 2][length - 2].setAnimals_in_cell(animal);
+//                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
+//                    } else if (width == 18) {
+//                        areaData.getArea()[width + 1][length - 1].setAnimals_in_cell(animal);
+//                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
+//                    } else if (width == 16) {
+//                        areaData.getArea()[width + 3][length - 3].setAnimals_in_cell(animal);
+//                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
+//                    } else if (width == 15) {
+//                        areaData.getArea()[width + 4][length - 4].setAnimals_in_cell(animal);
+//                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
+//                    }
+//                    //left central bounds
+//                } else if ((width > 0 && width <= widthArea - maxSpeed) && length > 0 && length <= maxSpeed) {
+//                    if (length == 1 && randomSpeed > length) {
+//                        areaData.getArea()[width + 1][length - 1].setAnimals_in_cell(animal);
+//                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
+//                    } else if (length == 2 && randomSpeed > length) {
+//                        areaData.getArea()[width + 2][length - 2].setAnimals_in_cell(animal);
+//                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
+//                    } else if (length == 3 && randomSpeed > length) {
+//                        areaData.getArea()[width + 3][length - 3].setAnimals_in_cell(animal);
+//                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
+//                    } else if (length == 4 && randomSpeed == length) {
+//                        areaData.getArea()[width + 4][length - 4].setAnimals_in_cell(animal);
+//                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
+//                    }
+//                    //top central bounds
+//                } else if ((length > 0 && length <= lengthArea - maxSpeed) && width > 0 && width <= maxSpeed) {
+//                    if (length == 1 && randomSpeed > length) {
+//                        areaData.getArea()[width + 1][length - 1].setAnimals_in_cell(animal);
+//                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
+//                    } else if (length == 2 && randomSpeed > length) {
+//                        areaData.getArea()[width + 2][length - 2].setAnimals_in_cell(animal);
+//                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
+//                    } else if (length == 3 && randomSpeed > length) {
+//                        areaData.getArea()[width + 3][length - 3].setAnimals_in_cell(animal);
+//                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
+//                    } else if (length == 4 && randomSpeed == length) {
+//                        areaData.getArea()[width + 4][length - 4].setAnimals_in_cell(animal);
+//                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
+//                    }
+//                    //right central bounds
+//                } else if ((width > 0 && width <= widthArea - maxSpeed) && length >= lengthArea - maxSpeed) {
+//                    if (length == 1 && randomSpeed > length) {
+//                        areaData.getArea()[width + randomSpeed][length - randomSpeed].setAnimals_in_cell(animal);
+//                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
+//                    }
+//                }
+//            } else if (randomBounds == 4) {
+//                //right bottom diagonal
+//
+//                //left central bounds
+//                if ((width > 0 && width <= widthArea) && length > 0 && length <= maxSpeed) {
+//                    if (length == 1 && randomSpeed > length) {
+//                        areaData.getArea()[width + 1][length + 1].setAnimals_in_cell(animal);
+//                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
+//                    } else if (length == 2 && randomSpeed > length) {
+//                        areaData.getArea()[width + 2][length + 2].setAnimals_in_cell(animal);
+//                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
+//                    } else if (length == 3 && randomSpeed > length) {
+//                        areaData.getArea()[width + 3][length + 3].setAnimals_in_cell(animal);
+//                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
+//                    } else if (length == 4 && randomSpeed == length) {
+//                        areaData.getArea()[width + 4][length + 4].setAnimals_in_cell(animal);
+//                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
+//                    }
+//                    //top central bounds
+//                } else if ((length > 0 && length < lengthArea) && width > 0 && width <= maxSpeed) {
+//                    if (length == lengthArea - 1 && randomSpeed > length) {
+//                        areaData.getArea()[width + 1][length + 1].setAnimals_in_cell(animal);
+//                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
+//                    } else if (length == lengthArea - 2 && randomSpeed > length) {
+//                        areaData.getArea()[width + 2][length + 2].setAnimals_in_cell(animal);
+//                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
+//                    } else if (length == lengthArea - 3 && randomSpeed > length) {
+//                        areaData.getArea()[width + 3][length + 3].setAnimals_in_cell(animal);
+//                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
+//                    } else if (length == lengthArea - 4 && randomSpeed == length) {
+//                        areaData.getArea()[width + 4][length + 4].setAnimals_in_cell(animal);
+//                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
+//                    }
+//                    //right bottom corner central bounds
+//                } else if (width + randomSpeed >= widthArea && length == lengthArea - 1 && randomSpeed > length) {
+//                    areaData.getArea()[width + 1][length + 1].setAnimals_in_cell(animal);
+//                    areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
+//                } else if (width + randomSpeed >= widthArea && length == lengthArea - 2 && randomSpeed > length) {
+//                    if (width == 17) {
+//                        areaData.getArea()[width + 2][length + 2].setAnimals_in_cell(animal);
+//                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
+//                    } else if (width == 18) {
+//                        areaData.getArea()[width + 1][length + 1].setAnimals_in_cell(animal);
+//                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
+//                    }
+//                } else if (width + randomSpeed >= widthArea && length == lengthArea - 3 && randomSpeed > length) {
+//                    if (width == 17) {
+//                        areaData.getArea()[width + 2][length + 2].setAnimals_in_cell(animal);
+//                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
+//                    } else if (width == 18) {
+//                        areaData.getArea()[width + 1][length + 1].setAnimals_in_cell(animal);
+//                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
+//                    } else if (width == 16) {
+//                        areaData.getArea()[width + 3][length + 3].setAnimals_in_cell(animal);
+//                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
+//                    }
+//                } else if (width + randomSpeed >= widthArea && length == lengthArea - 4 && randomSpeed == length) {
+//                    if (width == 17) {
+//                        areaData.getArea()[width + 2][length + 2].setAnimals_in_cell(animal);
+//                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
+//                    } else if (width == 18) {
+//                        areaData.getArea()[width + 1][length + 1].setAnimals_in_cell(animal);
+//                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
+//                    } else if (width == 16) {
+//                        areaData.getArea()[width + 3][length + 3].setAnimals_in_cell(animal);
+//                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
+//                    } else if (width == 15) {
+//                        areaData.getArea()[width + 4][length + 4].setAnimals_in_cell(animal);
+//                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
+//                    }
+//                } else if ((width > maxSpeed && width < widthArea - maxSpeed) && (length > lengthArea - maxSpeed && length < lengthArea)) {
+//                    if (length == lengthArea - 1 && randomSpeed > length) {
+//                        areaData.getArea()[width + 1][length + 1].setAnimals_in_cell(animal);
+//                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
+//                    } else if (length == lengthArea - 2 && randomSpeed > length) {
+//                        areaData.getArea()[width + 2][length + 2].setAnimals_in_cell(animal);
+//                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
+//                    } else if (length == lengthArea - 3 && randomSpeed > length) {
+//                        areaData.getArea()[width + 3][length + 3].setAnimals_in_cell(animal);
+//                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
+//                    } else if (length == lengthArea - 4 && randomSpeed == length) {
+//                        areaData.getArea()[width + 4][length + 4].setAnimals_in_cell(animal);
+//                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
+//                    }
+//                } else if ((width > widthArea - maxSpeed && width < widthArea) && (length > maxSpeed && length < lengthArea - maxSpeed)) {
+//                    if (width == 17) {
+//                        areaData.getArea()[width + 2][length + 2].setAnimals_in_cell(animal);
+//                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
+//                    } else if (width == 18) {
+//                        areaData.getArea()[width + 1][length + 1].setAnimals_in_cell(animal);
+//                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
+//                    } else if (width == 16) {
+//                        areaData.getArea()[width + 3][length + 3].setAnimals_in_cell(animal);
+//                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
+//                    } else if (width == 15) {
+//                        areaData.getArea()[width + 4][length + 4].setAnimals_in_cell(animal);
+//                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
+//                    }
+//                }
+
+//            } else if (randomCenter == 6) {
+//                //left upper diagonal
+//                //left bounds
+//                if ((width > 0 && width <= widthArea) && length > 0 && length <= maxSpeed) {
+//                    if (length == 1 && randomSpeed > length) {
+//                        areaData.getArea()[width - 1][length - 1].setAnimals_in_cell(animal);
+//                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
+//                    } else if (length == 2 && randomSpeed > length) {
+//                        areaData.getArea()[width - 2][length - 2].setAnimals_in_cell(animal);
+//                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
+//                    } else if (length == 3 && randomSpeed > length) {
+//                        areaData.getArea()[width - 3][length - 3].setAnimals_in_cell(animal);
+//                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
+//                    } else if (length == 4 && randomSpeed == length) {
+//                        areaData.getArea()[width - 4][length - 4].setAnimals_in_cell(animal);
+//                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
+//                    }
+//                    //top central bounds
+//                } else if ((length > maxSpeed && length < lengthArea) && width > 0 && width <= maxSpeed) {
+//                    if (width == 1 && randomSpeed > width) {
+//                        areaData.getArea()[width - 1][length - 1].setAnimals_in_cell(animal);
+//                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
+//                    } else if (width == 2 && randomSpeed > width) {
+//                        areaData.getArea()[width - 2][length - 2].setAnimals_in_cell(animal);
+//                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
+//                    } else if (width == 3 && randomSpeed > width) {
+//                        areaData.getArea()[width - 3][length - 3].setAnimals_in_cell(animal);
+//                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
+//                    } else if (width == 4 && randomSpeed > width) {
+//                        areaData.getArea()[width - 4][length - 4].setAnimals_in_cell(animal);
+//                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
+//                    }
+//                    //right bounds
+//                } else if (width > maxSpeed && length > lengthArea - maxSpeed) {
+//                    areaData.getArea()[width - randomSpeed][length - randomSpeed].setAnimals_in_cell(animal);
+//                    areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
+//                    //bottom bounds
+//                } else if ((width >= widthArea - maxSpeed) && (length > maxSpeed && length < lengthArea - maxSpeed)) {
+//                    areaData.getArea()[width - randomSpeed][length - randomSpeed].setAnimals_in_cell(animal);
+//                    areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
+//                }
+//            } else if (randomCenter == 7) {
+        //right upper diagonal
+        //left bounds
+//                if ((width > 0 && width <= widthArea) && length > 0 && length <= maxSpeed) {
+//                    if (length == 1 && randomSpeed > length) {
+//                        areaData.getArea()[width - 1][length + 1].setAnimals_in_cell(animal);
+//                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
+//                    } else if (length == 2 && randomSpeed > length) {
+//                        areaData.getArea()[width - 2][length + 2].setAnimals_in_cell(animal);
+//                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
+//                    } else if (length == 3 && randomSpeed > length) {
+//                        areaData.getArea()[width - 3][length + 3].setAnimals_in_cell(animal);
+//                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
+//                    } else if (length == 4 && randomSpeed == length) {
+//                        areaData.getArea()[width - 4][length + 4].setAnimals_in_cell(animal);
+//                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
+//                    }
+//                    //top central bounds
+//                } else if ((length > maxSpeed && length < lengthArea) && width > 0 && width <= maxSpeed) {
+//                    if (width == 1 && randomSpeed > width) {
+//                        areaData.getArea()[width - 1][length + 1].setAnimals_in_cell(animal);
+//                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
+//                    } else if (width == 2 && randomSpeed > width) {
+//                        areaData.getArea()[width - 2][length + 2].setAnimals_in_cell(animal);
+//                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
+//                    } else if (width == 3 && randomSpeed > width) {
+//                        areaData.getArea()[width - 3][length + 3].setAnimals_in_cell(animal);
+//                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
+//                    } else if (width == 4 && randomSpeed > width) {
+//                        areaData.getArea()[width - 4][length + 4].setAnimals_in_cell(animal);
+//                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
+//                    }
+//                    //right bounds
+//                } else if (width > maxSpeed && length > lengthArea - maxSpeed) {
+//                    if (length == lengthArea - 1 && randomSpeed > length) {
+//                        areaData.getArea()[width - 1][length + 1].setAnimals_in_cell(animal);
+//                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
+//                    } else if (length == lengthArea - 2 && randomSpeed > length) {
+//                        areaData.getArea()[width - 2][length + 2].setAnimals_in_cell(animal);
+//                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
+//                    } else if (length == lengthArea - 3 && randomSpeed > length) {
+//                        areaData.getArea()[width - 3][length + 3].setAnimals_in_cell(animal);
+//                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
+//                    } else if (length == lengthArea - 4 && randomSpeed == length) {
+//                        areaData.getArea()[width - 4][length + 4].setAnimals_in_cell(animal);
+//                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
+//                    }
+//                    //bottom bounds
+//                } else if ((width >= widthArea - maxSpeed) && (length > maxSpeed && length < lengthArea - maxSpeed)) {
+//                    areaData.getArea()[width - randomSpeed][length + randomSpeed].setAnimals_in_cell(animal);
+//                    areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
+//                }
+//            }
+
 //        } else if ((width >= 1 && width < widthArea) && randomSpeed <= (lengthArea - length)) {
 //            //right central bounds
 //            if (randomCenter == 0) {
@@ -787,10 +791,7 @@ public class Rabbit extends Herbivore {
 //                areaData.getArea()[width - randomSpeed][length + randomSpeed].setAnimals_in_cell(animal);
 //                areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
 //            }
-        }
-
     }
-
     @Override
     public void reproduce(Animal animal, int width, int length) {
 

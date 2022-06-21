@@ -12,21 +12,60 @@ public class Cell {
     private Plant plant;
 
     public void showCell() {
-        for (int i = 0; i < animals_in_cell.size(); i++) {
 
-        }
+        /*
+        -если нет животных и растений
+            -показать землю
+        -если есть 1 животное и нет растений
+            -показать животного
+        -если есть более 1 животного и нет растений
+            -если животные хищники - показать лапки
+            -есть хищник и травоядное - показать мечи
+            -есть травоядные - показать лапки
+        -если есть растение и нет животных
+            -показать растение
+        -если есть 1 животное и растение
+            -если животное хищник - показать куст
+            -есть животное травоядное - показать тарелку
+        -если есть более 1 животного и есть растение
+            -если животные хищники - показать лапки
+            -есть хищник и травоядное - показать мечи
+            -есть травоядные - показать тарелку
+         */
+
         if (animals_in_cell.isEmpty() && plant == null) {
             System.out.print(groundIcon);
-        } else if (isPredators() && animals_in_cell.size() > 1) {
-            System.out.print(AnimalIcons.FEWPREDATORS.getIcon());
-        } else if (animals_in_cell.size() == 1 && plant == null) {
+        }
+        if (animals_in_cell.size() == 1 && plant == null) {
             System.out.print(animals_in_cell.get(0).getIcon());
-//        } else if (animals_in_cell.size() > 1 && plant == null) {
-//            System.out.print(AnimalIcons.BATTLE.getIcon());
-        } else if (animals_in_cell.size() == 0 && plant != null) {
+        }
+        if (animals_in_cell.size() > 1 && plant == null) {
+            if (isPredators()) {
+                System.out.print(AnimalIcons.FEWPREDATORS.getIcon());
+            } else if (isPredAndHerbInCell()) {
+                System.out.print(AnimalIcons.BATTLE.getIcon());
+            } else if (isHerbivores()) {
+                System.out.print(AnimalIcons.FEWPREDATORS.getIcon());
+            }
+        }
+        if (animals_in_cell.isEmpty() && plant != null) {
             System.out.print(plant.getIcon());
-        } else if (isHerbivores() && plant != null) {
-            System.out.print(AnimalIcons.EATPLANT.getIcon());
+        }
+        if (animals_in_cell.size() == 1 && plant != null) {
+            if (animals_in_cell.get(0).getClass().getSuperclass() == Predator.class) {
+                System.out.print(plant.getIcon());
+            } else if (animals_in_cell.get(0).getClass().getSuperclass() == Herbivore.class) {
+                System.out.print(AnimalIcons.EATPLANT.getIcon());
+            }
+        }
+        if (animals_in_cell.size() > 1 && plant != null) {
+            if (isPredators()) {
+                System.out.print(AnimalIcons.FEWPREDATORS.getIcon());
+            } else if (isPredAndHerbInCell()) {
+                System.out.print(AnimalIcons.BATTLE.getIcon());
+            } else if (isHerbivores()) {
+                System.out.print(AnimalIcons.EATPLANT.getIcon());
+            }
         }
     }
 
@@ -40,7 +79,7 @@ public class Cell {
             }
         }
 
-        if (herbivores.size() == animals_in_cell.size()) {
+        if (herbivores.size() > 1 && herbivores.size() == animals_in_cell.size()) {
             isTrue = true;
         } else {
             isTrue = false;
@@ -61,7 +100,7 @@ public class Cell {
                 herbivore.add(animals_in_cell.get(i));
             }
 
-            if (predators.size() > 1 && herbivore.size() > 1) {
+            if (!predators.isEmpty() && !herbivore.isEmpty()) {
                 isTrue = true;
             } else {
                 isTrue = false;
@@ -77,7 +116,7 @@ public class Cell {
             if (animals_in_cell.get(i).getClass().getSuperclass() == Predator.class)
                 predators.add(animals_in_cell.get(i));
         }
-        if (!predators.isEmpty() && predators.size() == animals_in_cell.size()) {
+        if (predators.size() > 1 && predators.size() == animals_in_cell.size()) {
             return true;
         } else {
             return false;
