@@ -2,6 +2,7 @@ package org.example.domains;
 
 import org.example.dao.AreaData;
 import org.example.utils.AnimalIcons;
+import org.example.utils.AnimalType;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -794,8 +795,11 @@ public class Rabbit extends Herbivore {
     }
     @Override
     public void reproduce(Animal animal, int width, int length) {
-
+        int randomWidth = ThreadLocalRandom.current().nextInt(0, areaData.getArea().length);
+        int randomLength = ThreadLocalRandom.current().nextInt(0, areaData.getArea()[0].length);
+        areaData.getArea()[randomWidth][randomLength].setAnimals_in_cell(new AnimalFactory().create(AnimalType.RABBIT));
     }
+
 
     @Override
     public int getLeftAlive() {

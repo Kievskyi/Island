@@ -24,8 +24,8 @@ public class AnimalData {
         animalList.add(new Mouse());
         animalList.add(new Rabbit());
         animalList.add(new Sheep());
-        animalList.add(new Snake());
         animalList.add(new Wolf());
+        animalList.add(new Snake());
 
 //        initializeMap();
     }

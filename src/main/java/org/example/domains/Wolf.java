@@ -2,6 +2,7 @@ package org.example.domains;
 
 import org.example.dao.AreaData;
 import org.example.utils.AnimalIcons;
+import org.example.utils.AnimalType;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -39,7 +40,7 @@ public class Wolf extends Predator {
             put("Plant", 0);
         }};
         satiety = ThreadLocalRandom.current().nextDouble(3, 6);
-        leftAlive = ThreadLocalRandom.current().nextInt(13 , max_amount_in_cell + 1);
+        leftAlive = ThreadLocalRandom.current().nextInt(13, max_amount_in_cell + 1);
     }
 
     @Override
@@ -810,10 +811,16 @@ public class Wolf extends Predator {
 //                areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
 //            }
     }
+
+
     @Override
     public void reproduce(Animal animal, int width, int length) {
-
+        int randomWidth = ThreadLocalRandom.current().nextInt(0, areaData.getArea().length);
+        int randomLength = ThreadLocalRandom.current().nextInt(0, areaData.getArea()[0].length);
+        areaData.getArea()[randomWidth][randomLength].setAnimals_in_cell(new AnimalFactory().create(AnimalType.WOLF));
     }
+
+
 
     @Override
     public int getLeftAlive() {

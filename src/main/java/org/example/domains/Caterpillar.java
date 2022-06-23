@@ -2,6 +2,7 @@ package org.example.domains;
 
 import org.example.dao.AreaData;
 import org.example.utils.AnimalIcons;
+import org.example.utils.AnimalType;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -39,17 +40,23 @@ public class Caterpillar extends Herbivore {
             put("Bear", 0);
             put("Plant", 100);
         }};
-        leftAlive = ThreadLocalRandom.current().nextInt(300 , max_amount_in_cell + 1);
+        leftAlive = ThreadLocalRandom.current().nextInt(300, max_amount_in_cell + 1);
     }
 
-    public void eat(Plant plant, int width, int length) {}
+    public void eat(Plant plant, int width, int length) {
+    }
 
 
     @Override
-    public void move(Animal animal, int width, int length) {}
+    public void move(Animal animal, int width, int length) {
+    }
 
     @Override
-    public void reproduce(Animal animal, int width, int length) {}
+    public void reproduce(Animal animal, int width, int length) {
+        int randomWidth = ThreadLocalRandom.current().nextInt(0, areaData.getArea().length);
+        int randomLength = ThreadLocalRandom.current().nextInt(0, areaData.getArea()[0].length);
+        areaData.getArea()[randomWidth][randomLength].setAnimals_in_cell(new AnimalFactory().create(AnimalType.CATERPILLAR));
+    }
 
     @Override
     public int getLeftAlive() {

@@ -2,11 +2,10 @@ package org.example.controllers;
 
 import org.example.dao.AnimalData;
 import org.example.dao.AreaData;
-import org.example.domains.Cell;
-import org.example.domains.Herbivore;
-import org.example.domains.Plant;
-import org.example.domains.Predator;
+import org.example.domains.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -20,28 +19,7 @@ public class AreaController implements Runnable {
 
     @Override
     public void run() {
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                for (int i = 0; i < areaData.getArea().length; i++) {
-                    for (int j = 0; j < areaData.getArea()[i].length; i++) {
-                        for (int k = 0; k < areaData.getArea()[i][j].getAnimals_in_cell().size(); k++) {
-                            AtomicInteger satiety = new AtomicInteger((int) areaData.getArea()[i][j].getAnimals_in_cell().get(k).getSatiety());
-                            areaData.getArea()[i][j].getAnimals_in_cell().get(k).setSatiety(satiety.decrementAndGet());
-                        }
-
-                        try {
-                            Thread.sleep(1);
-                        } catch (InterruptedException e) {
-                            throw new RuntimeException(e);
-                        }
-                    }
-                }
-            }
-        });
-        thread.start();
-
-        for (int i = 0; i < 10000; i++) {
+        for (int i = 0; i < 20; i++) {
             deNextRound();
 
 //            try {
@@ -50,9 +28,20 @@ public class AreaController implements Runnable {
 //                throw new RuntimeException(e);
 //            }
         }
+
+        int counter = 0;
+        for (int i = 0; i < areaData.getArea().length; i++) {
+            for (int j = 0; j < areaData.getArea()[i].length; j++) {
+                counter += areaData.getArea()[i][j].getAnimals_in_cell().size();
+            }
+        }
+        System.out.println(counter);
     }
 
     public synchronized void deNextRound() {
+
+        tryToReproduce();
+
         for (int i = 0; i < areaData.getArea().length; i++) {
             for (int j = 0; j < areaData.getArea()[i].length; j++) {
                 //если на этой клетке есть растение и несколько животных
@@ -124,11 +113,13 @@ public class AreaController implements Runnable {
                                     areaData.getArea()[i][j].getAnimals_in_cell().get(k).eat(areaData.getArea()[i][j].getAnimals_in_cell().get(l), i, j);
                                 }
                             }
+                        }
                             //после действий - вызываем у всех животных метод move()
                             for (int l = 0; l < areaData.getArea()[i][j].getAnimals_in_cell().size(); l++) {
-                                areaData.getArea()[i][j].getAnimals_in_cell().get(k).move(areaData.getArea()[i][j].getAnimals_in_cell().get(k), i, j);
+                                if (!areaData.getArea()[i][j].getAnimals_in_cell().isEmpty()) {
+                                    areaData.getArea()[i][j].getAnimals_in_cell().get(l).move(areaData.getArea()[i][j].getAnimals_in_cell().get(l), i, j);
+                                }
                             }
-                        }
                         //если оба животных травоядные
                     } else if (areaData.getArea()[i][j].isHerbivores()) {
                         //то они просто едят до полного насыщения
@@ -161,6 +152,65 @@ public class AreaController implements Runnable {
         System.out.println();
         System.out.println();
         System.out.println();
+    }
+
+    private void tryToReproduce() {
+
+
+        for (int i = 0; i < areaData.getArea().length; i++) {
+            for (int j = 0; j < areaData.getArea()[i].length; j++) {
+                for (int k = 0; k < areaData.getArea()[i][j].getAnimals_in_cell().size(); k++) {
+                    //если на этой ячейке есть животное
+                    if (!areaData.getArea()[i][j].getAnimals_in_cell().isEmpty()) {
+                        //получили эти эивотное
+                        Animal animal = areaData.getArea()[i][j].getAnimals_in_cell().get(k);
+                        int widthOfAnimal = i;
+                        int lengthOfAnimal = j;
+                        int valueOfSameKindAnimal = 0;
+                        int widthOfAnotherAnimal = 0;
+                        int lengthOfAnotherAnimal = 0;
+                        //проходимся по всем животным на поле
+                        for (int l = 0; l < areaData.getArea().length; l++) {
+                            for (int m = 0; m < areaData.getArea()[l].length; m++) {
+                                for (int n = 0; n < areaData.getArea()[l][m].getAnimals_in_cell().size(); n++) {
+                                    //обходим элемент листа в которым лежит наше животное
+                                    if (areaData.getArea()[l][m].getAnimals_in_cell().get(n).getKind_of_animal().equals(animal.getKind_of_animal())) {
+                                        //если полученное животное будет того же типа что и наш animals - то мы инкрементируем valueOfSameKindAnimal
+                                        valueOfSameKindAnimal += 1;
+                                        widthOfAnotherAnimal = l;
+                                        lengthOfAnotherAnimal = m;
+                                        if (i == l && j == m && k == n) {
+                                            valueOfSameKindAnimal -= 1;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        //если наше животное одно на поле
+                        if (valueOfSameKindAnimal == 0) {
+                            //если в стае осталось больше 1 животного
+                            if (animal.getLeftAlive() > 1) {
+                                //то с шансом 10% делаем ребенка
+                                int random = ThreadLocalRandom.current().nextInt(0, 101);
+                                if (random < 10) {
+                                    animal.reproduce(animal, i, j);
+                                }
+                            }
+
+                            //если на поле более 1 животного этого вида
+                        } else if (valueOfSameKindAnimal > 1) {
+                            //если их координаты совпадают
+                            if (widthOfAnimal == widthOfAnotherAnimal && lengthOfAnimal == lengthOfAnotherAnimal) {
+                                int random = ThreadLocalRandom.current().nextInt(0, 101);
+                                if (random <= 30) {
+                                    animal.reproduce(animal, i, j);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 
 
