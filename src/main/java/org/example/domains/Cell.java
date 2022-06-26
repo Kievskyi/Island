@@ -1,13 +1,13 @@
 package org.example.domains;
 
-import org.example.utils.AnimalIcons;
+import org.example.utils.AnimalIcon;
 
 import java.util.ArrayList;
 
 
 public class Cell {
 
-    private final String groundIcon = AnimalIcons.GROUND.getIcon();
+    private final String groundIcon = AnimalIcon.GROUND.getIcon();
     private ArrayList<Animal> animals_in_cell = new ArrayList<>();
     private Plant plant;
 
@@ -41,11 +41,11 @@ public class Cell {
         }
         if (animals_in_cell.size() > 1 && plant == null) {
             if (isPredators()) {
-                System.out.print(AnimalIcons.FEWPREDATORS.getIcon());
+                System.out.print(AnimalIcon.PAWS.getIcon());
             } else if (isPredAndHerbInCell()) {
-                System.out.print(AnimalIcons.BATTLE.getIcon());
+                System.out.print(AnimalIcon.BATTLE.getIcon());
             } else if (isHerbivores()) {
-                System.out.print(AnimalIcons.FEWPREDATORS.getIcon());
+                System.out.print(AnimalIcon.PAWS.getIcon());
             }
         }
         if (animals_in_cell.isEmpty() && plant != null) {
@@ -55,16 +55,16 @@ public class Cell {
             if (animals_in_cell.get(0).getClass().getSuperclass() == Predator.class) {
                 System.out.print(plant.getIcon());
             } else if (animals_in_cell.get(0).getClass().getSuperclass() == Herbivore.class) {
-                System.out.print(AnimalIcons.EATPLANT.getIcon());
+                System.out.print(AnimalIcon.PLATE.getIcon());
             }
         }
         if (animals_in_cell.size() > 1 && plant != null) {
             if (isPredators()) {
-                System.out.print(AnimalIcons.FEWPREDATORS.getIcon());
+                System.out.print(AnimalIcon.PAWS.getIcon());
             } else if (isPredAndHerbInCell()) {
-                System.out.print(AnimalIcons.BATTLE.getIcon());
+                System.out.print(AnimalIcon.BATTLE.getIcon());
             } else if (isHerbivores()) {
-                System.out.print(AnimalIcons.EATPLANT.getIcon());
+                System.out.print(AnimalIcon.PLATE.getIcon());
             }
         }
     }

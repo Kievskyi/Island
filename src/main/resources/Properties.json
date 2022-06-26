@@ -1,4 +1,217 @@
 {
   "Area length" : 30,
-  "Area width" : 20
+  "Area width" : 15,
+  "Plant properties" : {
+    "icon" : "\uD83C\uDF40",
+    "max_amount_in_cell" : 200,
+    "max_amount_on_area" : 15,
+    "weight" : 1
+  },
+  "Properties of animals" : {
+    "SHEEP" : {
+      "@type" : "Sheep",
+      "icon" : "\uD83D\uDC11",
+      "weight" : 70.0,
+      "max_satiety" : 15.0,
+      "energyConsumption" : 1.0,
+      "maxSpeed" : 3,
+      "animalKind" : "SHEEP",
+      "chances_to_kill" : null
+    },
+    "DEER" : {
+      "@type" : "Deer",
+      "icon" : "\uD83E\uDD8C",
+      "weight" : 300.0,
+      "max_satiety" : 50.0,
+      "energyConsumption" : 3.0,
+      "maxSpeed" : 4,
+      "animalKind" : "DEER",
+      "chances_to_kill" : null
+    },
+    "EAGLE" : {
+      "@type" : "Eagle",
+      "icon" : "\uD83E\uDD85",
+      "weight" : 6.0,
+      "max_satiety" : 1.0,
+      "energyConsumption" : 0.08,
+      "maxSpeed" : 3,
+      "animalKind" : "EAGLE",
+      "chances_to_kill" : {
+        "SNAKE" : 80,
+        "MOUSE" : 90,
+        "DUCK" : 80,
+        "FOX" : 10,
+        "RABBIT" : 90
+      }
+    },
+    "GOAT" : {
+      "@type" : "Goat",
+      "icon" : "\uD83D\uDC10",
+      "weight" : 60.0,
+      "max_satiety" : 10.0,
+      "energyConsumption" : 0.7,
+      "maxSpeed" : 3,
+      "animalKind" : "GOAT",
+      "chances_to_kill" : null
+    },
+    "BEAR" : {
+      "@type" : "Bear",
+      "icon" : "\uD83D\uDC3B",
+      "weight" : 500.0,
+      "max_satiety" : 80.0,
+      "energyConsumption" : 5.0,
+      "maxSpeed" : 2,
+      "animalKind" : "BEAR",
+      "chances_to_kill" : {
+        "SHEEP" : 70,
+        "DEER" : 80,
+        "GOAT" : 70,
+        "BUFFALO" : 20,
+        "SNAKE" : 80,
+        "MOUSE" : 90,
+        "BOAR" : 50,
+        "DUCK" : 10,
+        "HORSE" : 40,
+        "RABBIT" : 80
+      }
+    },
+    "BUFFALO" : {
+      "@type" : "Buffalo",
+      "icon" : "\uD83D\uDC03",
+      "weight" : 700.0,
+      "max_satiety" : 100.0,
+      "energyConsumption" : 7.0,
+      "maxSpeed" : 3,
+      "animalKind" : "BUFFALO",
+      "chances_to_kill" : null
+    },
+    "SNAKE" : {
+      "@type" : "Snake",
+      "icon" : "\uD83D\uDC0D",
+      "weight" : 15.0,
+      "max_satiety" : 3.0,
+      "energyConsumption" : 0.2,
+      "maxSpeed" : 1,
+      "animalKind" : "SNAKE",
+      "chances_to_kill" : {
+        "MOUSE" : 40,
+        "DUCK" : 10,
+        "FOX" : 15,
+        "RABBIT" : 20
+      }
+    },
+    "BOAR" : {
+      "@type" : "Boar",
+      "icon" : "\uD83D\uDC17",
+      "weight" : 400.0,
+      "max_satiety" : 50.0,
+      "energyConsumption" : 3.0,
+      "maxSpeed" : 2,
+      "animalKind" : "BOAR",
+      "chances_to_kill" : {
+        "CATERPILLAR" : 90
+      }
+    },
+    "DUCK" : {
+      "@type" : "Duck",
+      "icon" : "\uD83E\uDD86",
+      "weight" : 1.0,
+      "max_satiety" : 0.15,
+      "energyConsumption" : 0.01,
+      "maxSpeed" : 4,
+      "animalKind" : "DUCK",
+      "chances_to_kill" : {
+        "SHEEP" : 70,
+        "DEER" : 80,
+        "GOAT" : 70,
+        "BUFFALO" : 20,
+        "BEAR" : 10,
+        "SNAKE" : 80,
+        "MOUSE" : 90,
+        "BOAR" : 50,
+        "HORSE" : 40,
+        "CATERPILLAR" : 90,
+        "RABBIT" : 80
+      }
+    },
+    "HORSE" : {
+      "@type" : "Horse",
+      "icon" : "\uD83D\uDC34",
+      "weight" : 400.0,
+      "max_satiety" : 60.0,
+      "energyConsumption" : 3.5,
+      "maxSpeed" : 4,
+      "animalKind" : "HORSE",
+      "chances_to_kill" : {
+        "SNAKE" : 80
+      }
+    },
+    "RABBIT" : {
+      "@type" : "Rabbit",
+      "icon" : "\uD83D\uDC30",
+      "weight" : 2.0,
+      "max_satiety" : 0.45,
+      "energyConsumption" : 0.03,
+      "maxSpeed" : 2,
+      "animalKind" : "RABBIT",
+      "chances_to_kill" : null
+    },
+    "MOUSE" : {
+      "@type" : "Mouse",
+      "icon" : "\uD83D\uDC2D",
+      "weight" : 0.05,
+      "max_satiety" : 0.01,
+      "energyConsumption" : 0.001,
+      "maxSpeed" : 1,
+      "animalKind" : "MOUSE",
+      "chances_to_kill" : {
+        "CATERPILLAR" : 90
+      }
+    },
+    "WOLF" : {
+      "@type" : "Wolf",
+      "icon" : "\uD83D\uDC3A",
+      "weight" : 50.0,
+      "max_satiety" : 8.0,
+      "energyConsumption" : 0.5,
+      "maxSpeed" : 3,
+      "animalKind" : "WOLF",
+      "chances_to_kill" : {
+        "SHEEP" : 70,
+        "DEER" : 15,
+        "GOAT" : 60,
+        "BUFFALO" : 10,
+        "MOUSE" : 80,
+        "BOAR" : 15,
+        "DUCK" : 40,
+        "HORSE" : 10,
+        "RABBIT" : 60
+      }
+    },
+    "CATERPILLAR" : {
+      "@type" : "Caterpillar",
+      "icon" : "\uD83D\uDC1B",
+      "weight" : 0.01,
+      "max_satiety" : 0.0,
+      "energyConsumption" : 0.0,
+      "maxSpeed" : 0,
+      "animalKind" : "CATERPILLAR",
+      "chances_to_kill" : null
+    },
+    "FOX" : {
+      "@type" : "Fox",
+      "icon" : "\uD83E\uDD8A",
+      "weight" : 8.0,
+      "max_satiety" : 2.0,
+      "energyConsumption" : 0.16,
+      "maxSpeed" : 2,
+      "animalKind" : "FOX",
+      "chances_to_kill" : {
+        "MOUSE" : 90,
+        "DUCK" : 60,
+        "CATERPILLAR" : 40,
+        "RABBIT" : 70
+      }
+    }
+  }
 }

@@ -1,6 +1,6 @@
 package org.example.utils;
 
-public enum Colors {
+public enum Color {
 
     RESET("\u001B[0m"),
 
@@ -42,7 +42,7 @@ public enum Colors {
 
     private String color;
 
-    Colors(String color) {
+    Color(String color) {
         this.color = color;
     }
 

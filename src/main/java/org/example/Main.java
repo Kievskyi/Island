@@ -1,13 +1,17 @@
 package org.example;
 
 import org.example.controllers.ConsoleController;
-import org.example.utils.AnimalIcons;
-import org.example.utils.SystemIcons;
+import org.example.utils.Statistic;
 
 public class Main {
     public static void main(String[] args) {
         ConsoleController consoleController = new ConsoleController();
         consoleController.showMainPage();
+//        Statistic statistic = Statistic.getInstance();
+//        statistic.showStatistic();
+
+
+        //TODO repair a multithreading
 
 
 //        it's a converter

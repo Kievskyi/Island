@@ -1,144 +1,25 @@
 package org.example.domains;
 
-import org.example.dao.AreaData;
-import org.example.utils.AnimalIcons;
-import org.example.utils.AnimalType;
+import lombok.Getter;
+import lombok.Setter;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 
+@Getter
+@Setter
 public class Caterpillar extends Herbivore {
 
-    private AreaData areaData = AreaData.getInstance();
-    private String kind_of_animal = "Caterpillar";
-    private String icon = AnimalIcons.CATERPILLAR.getIcon();
-    private double weight = 0.01;
-    private double max_satiety = 0.0;
     private double satiety;
     private int max_amount_in_cell = 1000;
-
     private int leftAlive;
-    private int maxSpeed = 0;
-    private Map<String, Integer> chances_to_kill;
 
     {
-        chances_to_kill = new HashMap<>() {{
-            put("Wolf", 0);
-            put("Snake", 0);
-            put("Fox", 0);
-            put("Eagle", 0);
-            put("Horse", 0);
-            put("Deer", 0);
-            put("Rabbit", 0);
-            put("Mouse", 0);
-            put("Goat", 0);
-            put("Sheep", 0);
-            put("Boar", 0);
-            put("Buffalo", 0);
-            put("Duck", 0);
-            put("Bear", 0);
-            put("Plant", 100);
-        }};
         leftAlive = ThreadLocalRandom.current().nextInt(300, max_amount_in_cell + 1);
     }
 
-    public void eat(Plant plant, int width, int length) {
-    }
-
-
-    @Override
-    public void move(Animal animal, int width, int length) {
-    }
-
-    @Override
-    public void reproduce(Animal animal, int width, int length) {
-        int randomWidth = ThreadLocalRandom.current().nextInt(0, areaData.getArea().length);
-        int randomLength = ThreadLocalRandom.current().nextInt(0, areaData.getArea()[0].length);
-        areaData.getArea()[randomWidth][randomLength].setAnimals_in_cell(new AnimalFactory().create(AnimalType.CATERPILLAR));
-    }
-
-    @Override
-    public int getLeftAlive() {
-        return leftAlive;
-    }
-
-    @Override
-    public void setLeftAlive(int leftAlive) {
-        this.leftAlive = leftAlive;
-    }
-
-    @Override
-    public String getKind_of_animal() {
-        return kind_of_animal;
-    }
-
-    @Override
-    public void setKind_of_animal(String kind_of_animal) {
-        this.kind_of_animal = kind_of_animal;
-    }
-
-    @Override
-    public String getIcon() {
-        return icon;
-    }
-
-    @Override
-    public void setIcon(String icon) {
-        this.icon = icon;
-    }
-
-    @Override
-    public double getWeight() {
-        return weight;
-    }
-
-    @Override
-    public void setWeight(double weight) {
-        this.weight = weight;
-    }
-
-    @Override
-    public double getMax_satiety() {
-        return max_satiety;
-    }
-
-    @Override
-    public void setMax_satiety(double max_satiety) {
-        this.max_satiety = max_satiety;
-    }
-
-    public double getSatiety() {
-        return satiety;
-    }
-
-    public void setSatiety(double satiety) {
-        this.satiety = satiety;
-    }
-
-    @Override
-    public int getMax_amount_in_cell() {
-        return max_amount_in_cell;
-    }
-
-    @Override
-    public void setMax_amount_in_cell(int max_amount_in_cell) {
-        this.max_amount_in_cell = max_amount_in_cell;
-    }
-
-    public int getMaxSpeed() {
-        return maxSpeed;
-    }
-
-    public void setMaxSpeed(int maxSpeed) {
-        this.maxSpeed = maxSpeed;
-    }
-
-    public Map<String, Integer> getChances_to_kill() {
-        return chances_to_kill;
-    }
-
-    public void setChances_to_kill(Map<String, Integer> chances_to_kill) {
-        this.chances_to_kill = chances_to_kill;
+    public Caterpillar() {
+        super.setSatiety(satiety);
+        super.setMax_amount_in_cell(max_amount_in_cell);
+        super.setLeftAlive(leftAlive);
     }
 }

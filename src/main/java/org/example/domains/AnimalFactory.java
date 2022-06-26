@@ -1,11 +1,11 @@
 package org.example.domains;
 
-import org.example.utils.AnimalType;
+import org.example.utils.AnimalKind;
 
 public class AnimalFactory {
     private Animal animalType;
 
-    public Animal create(AnimalType type) {
+    public Animal create(AnimalKind type) {
 
         switch (type) {
             case BEAR:
@@ -67,7 +67,6 @@ public class AnimalFactory {
                 animalType = new Wolf();
                 break;
         }
-
         return animalType;
     }
 }
