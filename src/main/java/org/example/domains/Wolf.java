@@ -30,7 +30,6 @@ public class Wolf extends Predator {
             put(AnimalKind.BUFFALO, 10);
             put(AnimalKind.DUCK, 40);
         }};
-
         satiety = ThreadLocalRandom.current().nextDouble(3, 6);
         leftAlive = ThreadLocalRandom.current().nextInt(13, max_amount_in_cell + 1);
     }

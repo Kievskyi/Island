@@ -17,143 +17,112 @@ public class AreaController implements Runnable {
 
     @Override
     public void run() {
-//        for (int i = 0; i < 5; i++) {
-            deNextRound();
-//            try {
-//                Thread.sleep(1000);
-//            } catch (InterruptedException e) {
-//                throw new RuntimeException(e);
-//            }
-//        }
+        deNextRound();
     }
 
     public void deNextRound() {
-
         tryToReproduce();
-
-        for (int i = 0; i < areaData.getArea().length; i++) {
-            for (int j = 0; j < areaData.getArea()[i].length; j++) {
-                //если на этой клетке есть растение и несколько животных
-                if (areaData.getArea()[i][j].getPlant() != null &&
-                        areaData.getArea()[i][j].getAnimals_in_cell().size() > 1) {
-                    //если один из них травоядный а другой хищник
-                    if (areaData.getArea()[i][j].isPredAndHerbInCell()) {
-                        //каждый хищник должен попробовать съесть травоядного до момента полного насыщения
-                        for (int k = 0; k < areaData.getArea()[i][j].getAnimals_in_cell().size(); k++) {
-                            for (int l = 0; l < areaData.getArea()[i][j].getAnimals_in_cell().size(); l++) {
-                                if (k == areaData.getArea()[i][j].getAnimals_in_cell().size()) {
-                                    break;
-                                }
-                                //если эивотное хищник - то есть животного
-                                if (areaData.getArea()[i][j].getAnimals_in_cell().get(k).getClass().getSuperclass() == Predator.class) {
-                                    areaData.getArea()[i][j].getAnimals_in_cell().get(k).eat(areaData.getArea()[i][j].getAnimals_in_cell().get(l), i, j);
-                                    //если эивотное травоядное - есть растение
-                                } else if (areaData.getArea()[i][j].getAnimals_in_cell().get(k).getClass().getSuperclass() == Herbivore.class) {
-                                    areaData.getArea()[i][j].getAnimals_in_cell().get(k).eat(areaData.getArea()[i][j].getPlant(), i, j);
-                                }
-                            }
-                            //после действий - вызываем у всех животных метод move()
-                            for (int l = 0; l < areaData.getArea()[i][j].getAnimals_in_cell().size(); l++) {
-                                areaData.getArea()[i][j].getAnimals_in_cell().get(l).move(areaData.getArea()[i][j].getAnimals_in_cell().get(l), i, j);
-                            }
-                        }
-                        //если оба животных травоядные
-                    } else if (areaData.getArea()[i][j].isHerbivores()) {
-                        //то они просто едят до полного насыщения
-                        for (int k = 0; k < areaData.getArea()[i][j].getAnimals_in_cell().size(); k++) {
-                            areaData.getArea()[i][j].getAnimals_in_cell().get(k).eat(areaData.getArea()[i][j].getPlant(), i, j);
-                            areaData.getArea()[i][j].getAnimals_in_cell().get(k).move(areaData.getArea()[i][j].getAnimals_in_cell().get(k), i, j);
-
-                        }
-                        //если оба животных хищники
-                    } else if (areaData.getArea()[i][j].isPredators()) {
-                        //пробуют джруг друга съесть
-                        for (int k = 0; k < areaData.getArea()[i][j].getAnimals_in_cell().size(); k++) {
-                            for (int l = 0; l < areaData.getArea()[i][j].getAnimals_in_cell().size(); l++) {
-                                if (k == areaData.getArea()[i][j].getAnimals_in_cell().size()) {
-                                    break;
-                                }
-                                areaData.getArea()[i][j].getAnimals_in_cell().get(k).eat(areaData.getArea()[i][j].getAnimals_in_cell().get(l), i, j);
-                            }
-                        }
-                        //а потом вызываем у уцелевших метод move()
-                        for (int k = 0; k < areaData.getArea()[i][j].getAnimals_in_cell().size(); k++) {
-                            areaData.getArea()[i][j].getAnimals_in_cell().get(k).move(areaData.getArea()[i][j].getAnimals_in_cell().get(k), i, j);
-                        }
-                    }
-                    //если на этой клетке есть растение и 1 животное
-                } else if (areaData.getArea()[i][j].getPlant() != null &&
-                        areaData.getArea()[i][j].getAnimals_in_cell().size() == 1) {
-                    //если животное травоядное - есть растение
-                    if (areaData.getArea()[i][j].getAnimals_in_cell().get(0).getClass().getSuperclass() == Herbivore.class) {
-                        areaData.getArea()[i][j].getAnimals_in_cell().get(0).eat(areaData.getArea()[i][j].getPlant(), i, j);
-                        areaData.getArea()[i][j].getAnimals_in_cell().get(0).move(areaData.getArea()[i][j].getAnimals_in_cell().get(0), i, j);
-
-                        //или если животное хищник - вызывает метод move()
-                    } else if (areaData.getArea()[i][j].getAnimals_in_cell().get(0).getClass().getSuperclass() == Predator.class) {
-                        areaData.getArea()[i][j].getAnimals_in_cell().get(0).move(areaData.getArea()[i][j].getAnimals_in_cell().get(0), i, j);
-                    }
-                    //если на этой клетке есть животное и нет растений - то вызывается метод move()
-                } else if (areaData.getArea()[i][j].getAnimals_in_cell().size() == 1 && areaData.getArea()[i][j].getPlant() == null) {
-                    areaData.getArea()[i][j].getAnimals_in_cell().get(0).move(areaData.getArea()[i][j].getAnimals_in_cell().get(0), i, j);
-                    //если на этой клетке есть несколько животных и нет растений
-                } else if (areaData.getArea()[i][j].getAnimals_in_cell().size() > 1 && areaData.getArea()[i][j].getPlant() == null) {
-                    //каждый хищник должен попробовать съесть травоядного до момента полного насыщения
-                    if (areaData.getArea()[i][j].isPredAndHerbInCell()) {
-                        for (int k = 0; k < areaData.getArea()[i][j].getAnimals_in_cell().size(); k++) {
-                            for (int l = 0; l < areaData.getArea()[i][j].getAnimals_in_cell().size(); l++) {
-                                if (k == areaData.getArea()[i][j].getAnimals_in_cell().size()) {
-                                    break;
-                                }
-                                //если эивотное хищник - то есть животного
-                                if (areaData.getArea()[i][j].getAnimals_in_cell().get(k).getClass().getSuperclass() == Predator.class) {
-                                    areaData.getArea()[i][j].getAnimals_in_cell().get(k).eat(areaData.getArea()[i][j].getAnimals_in_cell().get(l), i, j);
-                                }
-                            }
-                        }
-                        //после действий - вызываем у всех животных метод move()
-                        for (int l = 0; l < areaData.getArea()[i][j].getAnimals_in_cell().size(); l++) {
-                            if (!areaData.getArea()[i][j].getAnimals_in_cell().isEmpty()) {
-                                areaData.getArea()[i][j].getAnimals_in_cell().get(l).move(areaData.getArea()[i][j].getAnimals_in_cell().get(l), i, j);
-                            }
-                        }
-                        //если оба животных травоядные
-                    } else if (areaData.getArea()[i][j].isHerbivores()) {
-                        //то они просто едят до полного насыщения
-                        for (int k = 0; k < areaData.getArea()[i][j].getAnimals_in_cell().size(); k++) {
-                            areaData.getArea()[i][j].getAnimals_in_cell().get(k).move(areaData.getArea()[i][j].getAnimals_in_cell().get(k), i, j);
-                        }
-                        //если оба животных хищники
-                    } else if (areaData.getArea()[i][j].isPredators()) {
-                        //пробуют джруг друга съесть
-                        for (int k = 0; k < areaData.getArea()[i][j].getAnimals_in_cell().size(); k++) {
-                            for (int l = 0; l < areaData.getArea()[i][j].getAnimals_in_cell().size(); l++) {
-                                if (k == areaData.getArea()[i][j].getAnimals_in_cell().size()) {
-                                    break;
-                                }
-                                areaData.getArea()[i][j].getAnimals_in_cell().get(k).eat(areaData.getArea()[i][j].getAnimals_in_cell().get(l), i, j);
-                            }
-                        }
-                        //а потом вызываем у уцелевших метод move()
-                        for (int k = 0; k < areaData.getArea()[i][j].getAnimals_in_cell().size(); k++) {
-                            areaData.getArea()[i][j].getAnimals_in_cell().get(k).move(areaData.getArea()[i][j].getAnimals_in_cell().get(k), i, j);
-                        }
-                    }
-                }
-            }
-        }
+        doAnimalActions();
         setSatietyAfterRound();
         deleteAnimalIfSatietyNull();
         showArea();
     }
 
+    private void doAnimalActions() {
+        for (int width = 0; width < areaData.getArea().length; width++) {
+            for (int length = 0; length < areaData.getArea()[width].length; length++) {
+                if (areaData.getArea()[width][length].getPlant() != null &&
+                        areaData.getArea()[width][length].getAnimals_in_cell().size() > 1) {
+                    if (areaData.getArea()[width][length].isPredAndHerbInCell()) {
+                        for (int animal = 0; animal < areaData.getArea()[width][length].getAnimals_in_cell().size(); animal++) {
+                            for (int anotherAnimal = 0; anotherAnimal < areaData.getArea()[width][length].getAnimals_in_cell().size(); anotherAnimal++) {
+                                if (animal == areaData.getArea()[width][length].getAnimals_in_cell().size()) {
+                                    break;
+                                }
+                                if (areaData.getArea()[width][length].getAnimals_in_cell().get(animal).getClass().getSuperclass() == Predator.class) {
+                                    areaData.getArea()[width][length].getAnimals_in_cell().get(animal).eat(areaData.getArea()[width][length].getAnimals_in_cell().get(anotherAnimal), width, length);
+                                } else if (areaData.getArea()[width][length].getAnimals_in_cell().get(animal).getClass().getSuperclass() == Herbivore.class) {
+                                    areaData.getArea()[width][length].getAnimals_in_cell().get(animal).eat(areaData.getArea()[width][length].getPlant(), width, length);
+                                }
+                            }
+                            for (int animalNumber = 0; animalNumber < areaData.getArea()[width][length].getAnimals_in_cell().size(); animalNumber++) {
+                                areaData.getArea()[width][length].getAnimals_in_cell().get(animalNumber).move(areaData.getArea()[width][length].getAnimals_in_cell().get(animalNumber), width, length);
+                            }
+                        }
+                    } else if (areaData.getArea()[width][length].isHerbivores()) {
+                        for (int animal = 0; animal < areaData.getArea()[width][length].getAnimals_in_cell().size(); animal++) {
+                            areaData.getArea()[width][length].getAnimals_in_cell().get(animal).eat(areaData.getArea()[width][length].getPlant(), width, length);
+                            areaData.getArea()[width][length].getAnimals_in_cell().get(animal).move(areaData.getArea()[width][length].getAnimals_in_cell().get(animal), width, length);
+                        }
+                    } else if (areaData.getArea()[width][length].isPredators()) {
+                        for (int animal = 0; animal < areaData.getArea()[width][length].getAnimals_in_cell().size(); animal++) {
+                            for (int anotherAnimal = 0; anotherAnimal < areaData.getArea()[width][length].getAnimals_in_cell().size(); anotherAnimal++) {
+                                if (animal == areaData.getArea()[width][length].getAnimals_in_cell().size()) {
+                                    break;
+                                }
+                                areaData.getArea()[width][length].getAnimals_in_cell().get(animal).eat(areaData.getArea()[width][length].getAnimals_in_cell().get(anotherAnimal), width, length);
+                            }
+                        }
+                        for (int animalNumber = 0; animalNumber < areaData.getArea()[width][length].getAnimals_in_cell().size(); animalNumber++) {
+                            areaData.getArea()[width][length].getAnimals_in_cell().get(animalNumber).move(areaData.getArea()[width][length].getAnimals_in_cell().get(animalNumber), width, length);
+                        }
+                    }
+                } else if (areaData.getArea()[width][length].getPlant() != null &&
+                        areaData.getArea()[width][length].getAnimals_in_cell().size() == 1) {
+                    if (areaData.getArea()[width][length].getAnimals_in_cell().get(0).getClass().getSuperclass() == Herbivore.class) {
+                        areaData.getArea()[width][length].getAnimals_in_cell().get(0).eat(areaData.getArea()[width][length].getPlant(), width, length);
+                        areaData.getArea()[width][length].getAnimals_in_cell().get(0).move(areaData.getArea()[width][length].getAnimals_in_cell().get(0), width, length);
+                    } else if (areaData.getArea()[width][length].getAnimals_in_cell().get(0).getClass().getSuperclass() == Predator.class) {
+                        areaData.getArea()[width][length].getAnimals_in_cell().get(0).move(areaData.getArea()[width][length].getAnimals_in_cell().get(0), width, length);
+                    }
+                } else if (areaData.getArea()[width][length].getAnimals_in_cell().size() == 1 && areaData.getArea()[width][length].getPlant() == null) {
+                    areaData.getArea()[width][length].getAnimals_in_cell().get(0).move(areaData.getArea()[width][length].getAnimals_in_cell().get(0), width, length);
+                } else if (areaData.getArea()[width][length].getAnimals_in_cell().size() > 1 && areaData.getArea()[width][length].getPlant() == null) {
+                    if (areaData.getArea()[width][length].isPredAndHerbInCell()) {
+                        for (int animal = 0; animal < areaData.getArea()[width][length].getAnimals_in_cell().size(); animal++) {
+                            for (int anotherAnimal = 0; anotherAnimal < areaData.getArea()[width][length].getAnimals_in_cell().size(); anotherAnimal++) {
+                                if (animal == areaData.getArea()[width][length].getAnimals_in_cell().size()) {
+                                    break;
+                                }
+                                if (areaData.getArea()[width][length].getAnimals_in_cell().get(animal).getClass().getSuperclass() == Predator.class) {
+                                    areaData.getArea()[width][length].getAnimals_in_cell().get(animal).eat(areaData.getArea()[width][length].getAnimals_in_cell().get(anotherAnimal), width, length);
+                                }
+                            }
+                        }
+                        for (int animal = 0; animal < areaData.getArea()[width][length].getAnimals_in_cell().size(); animal++) {
+                            if (!areaData.getArea()[width][length].getAnimals_in_cell().isEmpty()) {
+                                areaData.getArea()[width][length].getAnimals_in_cell().get(animal).move(areaData.getArea()[width][length].getAnimals_in_cell().get(animal), width, length);
+                            }
+                        }
+                    } else if (areaData.getArea()[width][length].isHerbivores()) {
+                        for (int animal = 0; animal < areaData.getArea()[width][length].getAnimals_in_cell().size(); animal++) {
+                            areaData.getArea()[width][length].getAnimals_in_cell().get(animal).move(areaData.getArea()[width][length].getAnimals_in_cell().get(animal), width, length);
+                        }
+                    } else if (areaData.getArea()[width][length].isPredators()) {
+                        for (int animal = 0; animal < areaData.getArea()[width][length].getAnimals_in_cell().size(); animal++) {
+                            for (int anotherAnimal = 0; anotherAnimal < areaData.getArea()[width][length].getAnimals_in_cell().size(); anotherAnimal++) {
+                                if (animal == areaData.getArea()[width][length].getAnimals_in_cell().size()) {
+                                    break;
+                                }
+                                areaData.getArea()[width][length].getAnimals_in_cell().get(animal).eat(areaData.getArea()[width][length].getAnimals_in_cell().get(anotherAnimal), width, length);
+                            }
+                        }
+                        for (int animal = 0; animal < areaData.getArea()[width][length].getAnimals_in_cell().size(); animal++) {
+                            areaData.getArea()[width][length].getAnimals_in_cell().get(animal).move(areaData.getArea()[width][length].getAnimals_in_cell().get(animal), width, length);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     private void deleteAnimalIfSatietyNull() {
-        for (int i = 0; i < areaData.getArea().length; i++) {
-            for (int j = 0; j < areaData.getArea()[i].length; j++) {
-                for (int k = 0; k < areaData.getArea()[i][j].getAnimals_in_cell().size(); k++) {
-                    if (areaData.getArea()[i][j].getAnimals_in_cell().get(k).isSatietyIsNull()) {
-                        areaData.getArea()[i][j].getAnimals_in_cell().remove(k);
-                        k--;
+        for (int width = 0; width < areaData.getArea().length; width++) {
+            for (int length = 0; length < areaData.getArea()[width].length; length++) {
+                for (int animal = 0; animal < areaData.getArea()[width][length].getAnimals_in_cell().size(); animal++) {
+                    if (areaData.getArea()[width][length].getAnimals_in_cell().get(animal).isSatietyIsNull()) {
+                        areaData.getArea()[width][length].getAnimals_in_cell().remove(animal);
+                        animal--;
                     }
                 }
             }
@@ -161,10 +130,10 @@ public class AreaController implements Runnable {
     }
 
     private void setSatietyAfterRound() {
-        for (int i = 0; i < areaData.getArea().length; i++) {
-            for (int j = 0; j < areaData.getArea()[i].length; j++) {
-                for (int k = 0; k < areaData.getArea()[i][j].getAnimals_in_cell().size(); k++) {
-                    areaData.getArea()[i][j].getAnimals_in_cell().get(k).setSatietyAfterRound();
+        for (int width = 0; width < areaData.getArea().length; width++) {
+            for (int length = 0; length < areaData.getArea()[width].length; length++) {
+                for (int animalNumber = 0; animalNumber < areaData.getArea()[width][length].getAnimals_in_cell().size(); animalNumber++) {
+                    areaData.getArea()[width][length].getAnimals_in_cell().get(animalNumber).setSatietyAfterRound();
                 }
             }
         }
@@ -180,50 +149,38 @@ public class AreaController implements Runnable {
 
     private void tryToReproduce() {
 
-
-        for (int i = 0; i < areaData.getArea().length; i++) {
-            for (int j = 0; j < areaData.getArea()[i].length; j++) {
-                for (int k = 0; k < areaData.getArea()[i][j].getAnimals_in_cell().size(); k++) {
-                    //если на этой ячейке есть животное
-                    if (!areaData.getArea()[i][j].getAnimals_in_cell().isEmpty()) {
-                        //получили эти эивотное
-                        Animal animal = areaData.getArea()[i][j].getAnimals_in_cell().get(k);
-                        int widthOfAnimal = i;
-                        int lengthOfAnimal = j;
+        for (int width = 0; width < areaData.getArea().length; width++) {
+            for (int length = 0; length < areaData.getArea()[width].length; length++) {
+                for (int animalNumber = 0; animalNumber < areaData.getArea()[width][length].getAnimals_in_cell().size(); animalNumber++) {
+                    if (!areaData.getArea()[width][length].getAnimals_in_cell().isEmpty()) {
+                        Animal animal = areaData.getArea()[width][length].getAnimals_in_cell().get(animalNumber);
+                        int widthOfAnimal = width;
+                        int lengthOfAnimal = length;
                         int valueOfSameKindAnimal = 0;
                         int widthOfAnotherAnimal = 0;
                         int lengthOfAnotherAnimal = 0;
-                        //проходимся по всем животным на поле
-                        for (int l = 0; l < areaData.getArea().length; l++) {
-                            for (int m = 0; m < areaData.getArea()[l].length; m++) {
-                                for (int n = 0; n < areaData.getArea()[l][m].getAnimals_in_cell().size(); n++) {
-                                    //обходим элемент листа в которым лежит наше животное
-                                    if (areaData.getArea()[l][m].getAnimals_in_cell().get(n).getAnimalKind().equals(animal.getAnimalKind())) {
-                                        //если полученное животное будет того же типа что и наш animals - то мы инкрементируем valueOfSameKindAnimal
+                        for (int anotherAnimalWidth = 0; anotherAnimalWidth < areaData.getArea().length; anotherAnimalWidth++) {
+                            for (int anotherAnimalLength = 0; anotherAnimalLength < areaData.getArea()[anotherAnimalWidth].length; anotherAnimalLength++) {
+                                for (int anotherAnimalNumber = 0; anotherAnimalNumber < areaData.getArea()[anotherAnimalWidth][anotherAnimalLength].getAnimals_in_cell().size(); anotherAnimalNumber++) {
+                                    if (areaData.getArea()[anotherAnimalWidth][anotherAnimalLength].getAnimals_in_cell().get(anotherAnimalNumber).getAnimalKind().equals(animal.getAnimalKind())) {
                                         valueOfSameKindAnimal += 1;
-                                        widthOfAnotherAnimal = l;
-                                        lengthOfAnotherAnimal = m;
-                                        if (i == l && j == m && k == n) {
+                                        widthOfAnotherAnimal = anotherAnimalWidth;
+                                        lengthOfAnotherAnimal = anotherAnimalLength;
+                                        if (width == anotherAnimalWidth && length == anotherAnimalLength && animalNumber == anotherAnimalNumber) {
                                             valueOfSameKindAnimal -= 1;
                                         }
                                     }
                                 }
                             }
                         }
-                        //если наше животное одно на поле
                         if (valueOfSameKindAnimal == 0) {
-                            //если в стае осталось больше 1 животного
                             if (animal.getLeftAlive() > 1) {
-                                //то с шансом 10% делаем ребенка
                                 int random = ThreadLocalRandom.current().nextInt(0, 101);
                                 if (random < 10) {
                                     animal.reproduce();
                                 }
                             }
-
-                            //если на поле более 1 животного этого вида
                         } else if (valueOfSameKindAnimal >= 1) {
-                            //если их координаты совпадают
                             if (widthOfAnimal == widthOfAnotherAnimal && lengthOfAnimal == lengthOfAnotherAnimal) {
                                 int random = ThreadLocalRandom.current().nextInt(0, 101);
                                 if (random <= 10) {
@@ -238,9 +195,9 @@ public class AreaController implements Runnable {
     }
 
     private void showArea() {
-        for (int i = 0; i < areaData.getArea().length; i++) {
-            for (int j = 0; j < areaData.getArea()[i].length; j++) {
-                areaData.getArea()[i][j].showCell();
+        for (int width = 0; width < areaData.getArea().length; width++) {
+            for (int length = 0; length < areaData.getArea()[width].length; length++) {
+                areaData.getArea()[width][length].showCell();
                 System.out.print(" ");
             }
             System.out.println();

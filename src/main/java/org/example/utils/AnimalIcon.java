@@ -43,55 +43,42 @@ public enum AnimalIcon {
             case 1:
                 animalIcon = BOAR.getIcon();
                 break;
-
             case 2:
                 animalIcon = BUFFALO.getIcon();
                 break;
-
             case 3:
                 animalIcon = CATERPILLAR.getIcon();
                 break;
-
             case 4:
                 animalIcon = DEER.getIcon();
                 break;
-
             case 5:
                 animalIcon = DUCK.getIcon();
                 break;
-
             case 6:
                 animalIcon = EAGLE.getIcon();
                 break;
-
             case 7:
                 animalIcon = FOX.getIcon();
                 break;
-
             case 8:
                 animalIcon = GOAT.getIcon();
                 break;
-
             case 9:
                 animalIcon = HORSE.getIcon();
                 break;
-
             case 10:
                 animalIcon = MOUSE.getIcon();
                 break;
-
             case 11:
                 animalIcon = RABBIT.getIcon();
                 break;
-
             case 12:
                 animalIcon = SHEEP.getIcon();
                 break;
-
             case 13:
                 animalIcon = SNAKE.getIcon();
                 break;
-
             case 14:
                 animalIcon = WOLF.getIcon();
                 break;

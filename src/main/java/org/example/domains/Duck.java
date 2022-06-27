@@ -31,7 +31,6 @@ public class Duck extends Herbivore {
             put(AnimalKind.BEAR, 10);
             put(AnimalKind.CATERPILLAR, 90);
         }};
-
         satiety = ThreadLocalRandom.current().nextDouble(0.3, 0.9);
         leftAlive = ThreadLocalRandom.current().nextInt(40, max_amount_in_cell + 1);
     }

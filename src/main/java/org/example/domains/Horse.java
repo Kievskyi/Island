@@ -21,7 +21,6 @@ public class Horse extends Herbivore {
         chances_to_kill = new HashMap<>() {{
             put(AnimalKind.SNAKE, 80);
         }};
-
         satiety = ThreadLocalRandom.current().nextDouble(20, 50);
         leftAlive = ThreadLocalRandom.current().nextInt(5 , max_amount_in_cell + 1);
     }

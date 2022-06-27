@@ -4,7 +4,6 @@ import org.example.domains.Cell;
 
 public class AreaData {
 
-
     private static AreaData INSTANCE;
     private volatile Cell[][] area;
 
@@ -13,15 +12,15 @@ public class AreaData {
 
     public void generateArea() {
 
-        for (int i = 0; i < area.length; i++) {
-            for (int j = 0; j < area[i].length; j++) {
-                area[i][j] = new Cell();
+        for (int width = 0; width < area.length; width++) {
+            for (int length = 0; length < area[width].length; length++) {
+                area[width][length] = new Cell();
             }
         }
     }
 
     public static AreaData getInstance() {
-        if(INSTANCE == null) {
+        if (INSTANCE == null) {
             INSTANCE = new AreaData();
         }
         return INSTANCE;

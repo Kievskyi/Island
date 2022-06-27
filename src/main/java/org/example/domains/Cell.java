@@ -4,7 +4,6 @@ import org.example.utils.AnimalIcon;
 
 import java.util.ArrayList;
 
-
 public class Cell {
 
     private final String groundIcon = AnimalIcon.GROUND.getIcon();
@@ -12,26 +11,6 @@ public class Cell {
     private Plant plant;
 
     public void showCell() {
-
-        /*
-        -если нет животных и растений
-            -показать землю
-        -если есть 1 животное и нет растений
-            -показать животного
-        -если есть более 1 животного и нет растений
-            -если животные хищники - показать лапки
-            -есть хищник и травоядное - показать мечи
-            -есть травоядные - показать лапки
-        -если есть растение и нет животных
-            -показать растение
-        -если есть 1 животное и растение
-            -если животное хищник - показать куст
-            -есть животное травоядное - показать тарелку
-        -если есть более 1 животного и есть растение
-            -если животные хищники - показать лапки
-            -есть хищник и травоядное - показать мечи
-            -есть травоядные - показать тарелку
-         */
 
         if (animals_in_cell.isEmpty() && plant == null) {
             System.out.print(groundIcon);
@@ -73,9 +52,9 @@ public class Cell {
         ArrayList<Animal> herbivores = new ArrayList<>();
         boolean isTrue = true;
 
-        for (int i = 0; i < animals_in_cell.size(); i++) {
-            if (animals_in_cell.get(i).getClass().getSuperclass() == Herbivore.class) {
-                herbivores.add(animals_in_cell.get(i));
+        for (int animal = 0; animal < animals_in_cell.size(); animal++) {
+            if (animals_in_cell.get(animal).getClass().getSuperclass() == Herbivore.class) {
+                herbivores.add(animals_in_cell.get(animal));
             }
         }
 
@@ -84,7 +63,6 @@ public class Cell {
         } else {
             isTrue = false;
         }
-
         return isTrue;
     }
 
@@ -93,11 +71,11 @@ public class Cell {
         ArrayList<Animal> herbivore = new ArrayList<>();
         boolean isTrue = true;
 
-        for (int i = 0; i < animals_in_cell.size(); i++) {
-            if (animals_in_cell.get(i).getClass().getSuperclass() == Predator.class) {
-                predators.add(animals_in_cell.get(i));
-            } else if (animals_in_cell.get(i).getClass().getSuperclass() == Herbivore.class) {
-                herbivore.add(animals_in_cell.get(i));
+        for (int animal = 0; animal < animals_in_cell.size(); animal++) {
+            if (animals_in_cell.get(animal).getClass().getSuperclass() == Predator.class) {
+                predators.add(animals_in_cell.get(animal));
+            } else if (animals_in_cell.get(animal).getClass().getSuperclass() == Herbivore.class) {
+                herbivore.add(animals_in_cell.get(animal));
             }
 
             if (!predators.isEmpty() && !herbivore.isEmpty()) {
@@ -112,9 +90,9 @@ public class Cell {
 
     public boolean isPredators() {
         ArrayList<Animal> predators = new ArrayList<>();
-        for (int i = 0; i < animals_in_cell.size(); i++) {
-            if (animals_in_cell.get(i).getClass().getSuperclass() == Predator.class)
-                predators.add(animals_in_cell.get(i));
+        for (int animal = 0; animal < animals_in_cell.size(); animal++) {
+            if (animals_in_cell.get(animal).getClass().getSuperclass() == Predator.class)
+                predators.add(animals_in_cell.get(animal));
         }
         if (predators.size() > 1 && predators.size() == animals_in_cell.size()) {
             return true;

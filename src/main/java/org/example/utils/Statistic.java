@@ -111,6 +111,8 @@ public class Statistic implements Runnable {
         System.out.println();
         System.out.println();
 
+        //2nd var
+
 //        System.out.printf("%-10s %-20s %-20s %-8s %s", "Animal", "Left alive flocks", "Left alive amount", "Kills", "Died");
 //        for (int j = 0; j < AnimalKind.values().length; j++) {
 //            String icon = AnimalIcon.valueOf(j);
@@ -127,10 +129,10 @@ public class Statistic implements Runnable {
 
     private int getLeftAliveFlocks(AnimalKind animalKind) {
         int aliveFlocks = 0;
-        for (int i = 0; i < areaData.getArea().length; i++) {
-            for (int j = 0; j < areaData.getArea()[i].length; j++) {
-                for (int k = 0; k < areaData.getArea()[i][j].getAnimals_in_cell().size(); k++) {
-                    if (animalKind.equals(areaData.getArea()[i][j].getAnimals_in_cell().get(k).getAnimalKind())) {
+        for (int width = 0; width < areaData.getArea().length; width++) {
+            for (int length = 0; length < areaData.getArea()[width].length; length++) {
+                for (int animal = 0; animal < areaData.getArea()[width][length].getAnimals_in_cell().size(); animal++) {
+                    if (animalKind.equals(areaData.getArea()[width][length].getAnimals_in_cell().get(animal).getAnimalKind())) {
                         aliveFlocks += 1;
                     }
                 }
@@ -141,11 +143,11 @@ public class Statistic implements Runnable {
 
     private int getLeftAliveAmount(AnimalKind animalKind) {
         int aliveAmount = 0;
-        for (int i = 0; i < areaData.getArea().length; i++) {
-            for (int j = 0; j < areaData.getArea()[i].length; j++) {
-                for (int k = 0; k < areaData.getArea()[i][j].getAnimals_in_cell().size(); k++) {
-                    if (animalKind.equals(areaData.getArea()[i][j].getAnimals_in_cell().get(k).getAnimalKind())) {
-                        aliveAmount += areaData.getArea()[i][j].getAnimals_in_cell().get(k).getLeftAlive();
+        for (int width = 0; width < areaData.getArea().length; width++) {
+            for (int length = 0; length < areaData.getArea()[width].length; length++) {
+                for (int animal = 0; animal < areaData.getArea()[width][length].getAnimals_in_cell().size(); animal++) {
+                    if (animalKind.equals(areaData.getArea()[width][length].getAnimals_in_cell().get(animal).getAnimalKind())) {
+                        aliveAmount += areaData.getArea()[width][length].getAnimals_in_cell().get(animal).getLeftAlive();
                     }
                 }
             }

@@ -24,7 +24,6 @@ public class Fox extends Predator {
             put(AnimalKind.DUCK, 60);
             put(AnimalKind.CATERPILLAR, 40);
         }};
-
         satiety = ThreadLocalRandom.current().nextDouble(0.8, 1.5);
         leftAlive = ThreadLocalRandom.current().nextInt(10, max_amount_in_cell + 1);
     }

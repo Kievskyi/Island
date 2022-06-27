@@ -25,7 +25,6 @@ public class Eagle extends Predator {
             put(AnimalKind.MOUSE, 90);
             put(AnimalKind.DUCK, 80);
         }};
-
         satiety = ThreadLocalRandom.current().nextDouble(0.2, 0.7);
         leftAlive = ThreadLocalRandom.current().nextInt(4, max_amount_in_cell + 1);
     }

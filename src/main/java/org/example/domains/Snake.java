@@ -24,7 +24,6 @@ public class Snake extends Predator {
             put(AnimalKind.MOUSE, 40);
             put(AnimalKind.DUCK, 10);
         }};
-
         satiety = ThreadLocalRandom.current().nextDouble(1, 2.3);
         leftAlive = ThreadLocalRandom.current().nextInt(13 , max_amount_in_cell + 1);
     }

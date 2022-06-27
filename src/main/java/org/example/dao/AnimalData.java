@@ -25,11 +25,11 @@ public class AnimalData {
         animalMap.putAll(properties.getPropertiesOfAnimals());
 
         while (counter < 15) {
-            for (int i = 0; i < areaData.getArea().length; i++) {
-                for (int j = 0; j < areaData.getArea()[i].length; j++) {
+            for (int width = 0; width < areaData.getArea().length; width++) {
+                for (int length = 0; length < areaData.getArea()[width].length; length++) {
                     int random = ThreadLocalRandom.current().nextInt(0, 140);
 
-                    if (random <= 1 && areaData.getArea()[i][j].getAnimals_in_cell().size() == 0 && areaData.getArea()[i][j].getPlant() == null
+                    if (random <= 1 && areaData.getArea()[width][length].getAnimals_in_cell().size() == 0 && areaData.getArea()[width][length].getPlant() == null
                             && counter < maxCounter) {
 
                         Animal animal = new AnimalFactory().create(AnimalKind.valueOf(counter));
@@ -47,9 +47,7 @@ public class AnimalData {
                                 animal.setMaxSpeed(map.getValue().getMaxSpeed());
                             }
                         }
-
-                        areaData.getArea()[i][j].setAnimals_in_cell(animal);
-
+                        areaData.getArea()[width][length].setAnimals_in_cell(animal);
                         counter++;
                     }
                 }
