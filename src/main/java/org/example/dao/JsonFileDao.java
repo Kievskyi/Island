@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import java.io.File;
 import java.io.IOException;
 
-public class JsonDao implements Dao<Properties> {
+public class JsonFileDao implements FileDao<Properties> {
 
     @Override
     public Properties load() {

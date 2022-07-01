@@ -1,7 +1,11 @@
 package org.example.dao;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.example.domains.Cell;
 
+@Setter
+@Getter
 public class AreaData {
 
     private static AreaData INSTANCE;
@@ -12,9 +16,9 @@ public class AreaData {
 
     public void generateArea() {
 
-        for (int width = 0; width < area.length; width++) {
-            for (int length = 0; length < area[width].length; length++) {
-                area[width][length] = new Cell();
+        for (int i = 0; i < area.length; i++) {
+            for (int j = 0; j < area[i].length; j++) {
+                area[i][j] = new Cell();
             }
         }
     }
@@ -24,13 +28,5 @@ public class AreaData {
             INSTANCE = new AreaData();
         }
         return INSTANCE;
-    }
-
-    public Cell[][] getArea() {
-        return area;
-    }
-
-    public void setArea(Cell[][] area) {
-        this.area = area;
     }
 }

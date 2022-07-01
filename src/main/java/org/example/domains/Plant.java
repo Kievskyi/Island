@@ -32,19 +32,19 @@ public class Plant implements Runnable {
             max_amount_on_area = plantData.getPlant().getMax_amount_on_area();
         }
 
-        for (int width = 0; width < areaData.getArea().length; width++) {
-            for (int length = 0; length < areaData.getArea()[width].length; length++) {
-                if (areaData.getArea()[width][length].getPlant() != null) {
+        for (int i = 0; i < areaData.getArea().length; i++) {
+            for (int j = 0; j < areaData.getArea()[i].length; j++) {
+                if (areaData.getArea()[i][j].getPlant() != null) {
                     counterOfPlants += 1;
                 }
             }
         }
 
         if (counterOfPlants > 0) {
-            for (int width = 0; width < areaData.getArea().length; width++) {
-                for (int length = 0; length < areaData.getArea()[width].length; length++) {
-                    if (areaData.getArea()[width][length].getPlant() != null) {
-                        areaData.getArea()[width][length].setPlant(null);
+            for (int i = 0; i < areaData.getArea().length; i++) {
+                for (int j = 0; j < areaData.getArea()[i].length; j++) {
+                    if (areaData.getArea()[i][j].getPlant() != null) {
+                        areaData.getArea()[i][j].setPlant(null);
                     }
                 }
             }
@@ -58,8 +58,8 @@ public class Plant implements Runnable {
     private void setNewPlantOnArea() {
         PlantData plantData = PlantData.getInstance();
         while (value_on_area < max_amount_on_area) {
-            for (int width = 0; width < areaData.getArea().length; width++) {
-                for (int length = 0; length < areaData.getArea()[width].length; length++) {
+            for (int i = 0; i < areaData.getArea().length; i++) {
+                for (int j = 0; j < areaData.getArea()[i].length; j++) {
                     int random = ThreadLocalRandom.current().nextInt(0, 101);
 
                     if (random <= 2 && value_on_area < max_amount_on_area) {
@@ -69,7 +69,7 @@ public class Plant implements Runnable {
                         plant.setMax_amount_in_cell(plantData.getPlant().getMax_amount_in_cell());
                         plant.setMax_amount_on_area(plantData.getPlant().getMax_amount_on_area());
                         plant.setLeftAlive(ThreadLocalRandom.current().nextInt(50, max_amount_in_cell + 1));
-                        areaData.getArea()[width][length].setPlant(plant);
+                        areaData.getArea()[i][j].setPlant(plant);
                         value_on_area += 1;
                     }
                 }

@@ -1,6 +1,6 @@
 package org.example.dao;
 
-public interface Dao<T> {
+public interface FileDao<T> {
 
     T load();
 
